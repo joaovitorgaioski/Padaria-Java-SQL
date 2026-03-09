@@ -1,0 +1,21 @@
+--== JDBC ==--
+
+Padrozinação:
+    Estamos usando o Padrão Factory e o Padrão DAO;
+    Dessa forma, separamos as responsabilidades, criando classes apenas para manipulação de BD.
+
+Criar conexão:
+    Crie um ConnectionFactory e crie um método getConnection que passa o localhost do banco. Lembre-se de usar try.
+
+Cada classe têm um DAO (Data Acess Object):
+    É um tradutor Objeto <-> SQL.
+    Connection, para conexão;
+    PreparedStatement, para comandos SQL;
+    ResultSet, para retornar dados do banco;
+
+Como usar?
+    Crie SQL usando PreparedStatement, é mais seguro, versátil e rápido;
+    Sempre feche o Connection, Statement e ResultSet, pois são recursos que pesam consideravelmente. Usar try fecha sozinho no final.
+
+    SELECT -> O banco retorna valores em um ResultSet ao usar stm.executeQuery();
+    INSERT INTO -> Faça o stm.setInt() ou stm.setString(), etc... e ao final execute stm.executeUpdate();
