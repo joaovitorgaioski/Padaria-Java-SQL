@@ -28,6 +28,7 @@ public class ProdutoDAO {
                 p.setId(rs.getInt("id_produto_PK"));
                 p.setNome(rs.getString("nome_produto"));
                 p.setSabor(rs.getString("sabor_produto"));
+                p.setQuantidade(rs.getInt("quantidade_produto"));
 
                 lista.add(p);
             }
@@ -42,7 +43,7 @@ public class ProdutoDAO {
     // Para implementar o metodo salvar, traduzimos de Objeto para SQL
     public void salvar(Produto p) {
         // Não passei id_produto_PK pois ele é auto_increment no banco
-        String sql = "INSERT INTO tb_produto (nome_produto, sabor_produto) VALUES (?, ?)";
+        String sql = "INSERT INTO tb_produto (nome_produto, sabor_produto, quantidade_produto) VALUES (?, ?, ?)";
 
         try {
             Connection conn = ConnectionFactory.getConnection();
@@ -51,6 +52,7 @@ public class ProdutoDAO {
             // Fazemos o setString passando qual o índice do SQL que iremos mudar
             stm.setString(1, p.getNome());
             stm.setString(2, p.getSabor());
+            stm.setInt(3, p.getQuantidade());
 
             // Executa a ação no banco
             stm.executeUpdate();

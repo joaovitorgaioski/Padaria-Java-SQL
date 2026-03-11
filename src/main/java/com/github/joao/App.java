@@ -1,29 +1,29 @@
 package com.github.joao;
 
 import java.util.List;
+import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) {
-        Produto p = new Produto();
-        ProdutoDAO pdao = new ProdutoDAO();
+        Scanner scan = new Scanner(System.in);
+        int op = -1;
 
-        p.setNome("Pão de Queijo");
-        p.setSabor("Queijo com Bacon");
+        System.out.println("-----==== Sistema para Padaria ====-----");
 
-        pdao.salvar(p);
+        while (op != 0) {
+            System.out.println("""
+                    (1) - Cadastrar pessoa \t\t(2) - Inserir produto
+                    (3) - Inserir ingrediente \t(4) - Iniciar pedido
+                    (5) - Listar produtos \t\t(0) - SAIR 
+                    """);
+            op = scan.nextInt();
+        }
 
-        System.out.println("\n------------------------------------");
-
-        System.out.println("Buscando todos os produtos no banco...");
-
-        List<Produto> lista = pdao.listar();
-
-        if (lista.isEmpty()) {
-            System.out.println("Nenhum produto encontrado. Verifique sua conexão ou tabela.");
-        } else {
-            for (Produto pr : lista) {
-                System.out.println("ID: " + pr.getId() + " | Nome: " + pr.getNome() + " | Sabor: " + pr.getSabor());
-            }
+        switch (op) {
+            case 1:
+                System.out.println("Quem você deseja cadastrar?\n(1) - Cliente \t(2) - Funcionário");
+                op = scan.nextInt();
+                break;
         }
     }
 }

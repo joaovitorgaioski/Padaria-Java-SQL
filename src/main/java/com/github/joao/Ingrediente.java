@@ -4,16 +4,18 @@ import java.util.Date;
 
 public class Ingrediente {
     private int id;
-    private String nome;
+    private String nome, unidadeIngrediente;
     private Date dataEntrada, dataSaida;
 
     public Ingrediente() {
     }
 
-    public Ingrediente(int id, String nome, Date dataEntrada) {
+    public Ingrediente(int id, String nome, String unidadeIngrediente, Date dataEntrada, Date dataSaida) {
         this.id = id;
         this.nome = nome;
+        this.unidadeIngrediente = unidadeIngrediente;
         this.dataEntrada = dataEntrada;
+        this.dataSaida = dataSaida;
     }
 
     public int getId() {
@@ -46,5 +48,13 @@ public class Ingrediente {
 
     public void setDataSaida(Date dataSaida) {
         this.dataSaida = dataSaida;
+    }
+
+    public String getUnidadeIngrediente() {
+        return unidadeIngrediente;
+    }
+
+    public void setUnidadeIngrediente(String unidadeIngrediente) {
+        this.unidadeIngrediente = unidadeIngrediente;
     }
 }

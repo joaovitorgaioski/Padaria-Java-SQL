@@ -1,16 +1,16 @@
 package com.github.joao;
 
 public class Produto {
-    private int id;
-    private String nome;
-    private String sabor;
+    private int id, quantidade;
+    private String nome, sabor;
 
     public Produto() {}
 
-    public Produto(int id, String nome, String sabor) {
-        this.id = id;
-        this.nome = nome;
+    public Produto(String sabor, String nome, int quantidade, int id) {
         this.sabor = sabor;
+        this.nome = nome;
+        this.quantidade = quantidade;
+        this.id = id;
     }
 
     public int getId() {
@@ -35,5 +35,13 @@ public class Produto {
 
     public void setSabor(String sabor) {
         this.sabor = sabor;
+    }
+
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
     }
 }
