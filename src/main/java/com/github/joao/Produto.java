@@ -4,7 +4,8 @@ public class Produto {
     private int id, quantidade;
     private String nome, sabor;
 
-    public Produto() {}
+    public Produto() {
+    }
 
     public Produto(String sabor, String nome, int quantidade, int id) {
         this.sabor = sabor;
@@ -26,7 +27,10 @@ public class Produto {
     }
 
     public void setNome(String nome) {
-        this.nome = nome;
+        if (nome.length() <= 50 && !nome.isBlank())
+            this.nome = nome;
+        else
+            throw new IllegalArgumentException("Nome deve conter menos de 50 caracterese e não pode ser vazio!");
     }
 
     public String getSabor() {

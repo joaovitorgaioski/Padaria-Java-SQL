@@ -32,31 +32,45 @@ public class ProdutoDAO {
 
                 lista.add(p);
             }
+            conn.close();
 
         } catch (SQLException e) {
             System.out.println("Erro na leitura do banco" + e);
         }
-
         return lista;
     }
 
     // Para implementar o metodo salvar, traduzimos de Objeto para SQL
     public void salvar(Produto p) {
-        // Não passei id_produto_PK pois ele é auto_increment no banco
-        String sql = "INSERT INTO tb_produto (nome_produto, sabor_produto, quantidade_produto) VALUES (?, ?, ?)";
+        // Primeiro tenta realizar incremento com UPDATE
+        String sql = "UPDATE tb_produto SET quantidade_produto = quantidade_produto + ? WHERE nome_produto = ? AND sabor_produto = ?";
 
-        try {
-            Connection conn = ConnectionFactory.getConnection();
-            PreparedStatement stm = conn.prepareStatement(sql);
+        // Aqui usei um Try-With-Resources pq ele fecha a conexão automaticamente ao finalizar o escopo do try
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement stm = conn.prepareStatement(sql)
+        ) {
+            // Fazemos o setInt passando qual o índice do SQL que iremos mudar
+            stm.setInt(1, p.getQuantidade());
+            stm.setString(2, p.getNome().toLowerCase());
+            stm.setString(3, p.getSabor().toLowerCase());
 
-            // Fazemos o setString passando qual o índice do SQL que iremos mudar
-            stm.setString(1, p.getNome());
-            stm.setString(2, p.getSabor());
-            stm.setInt(3, p.getQuantidade());
+            int linhasAfetadas = stm.executeUpdate();
 
-            // Executa a ação no banco
-            stm.executeUpdate();
-            System.out.println("Produto salvo com sucesso.");
+            // Caso não haja mudanças (nenhuma linha foi alterada no UPDATE), realiza o INSERT
+            if (linhasAfetadas == 0) {
+                // Não passei id_produto_PK, pois ele é auto_increment no banco
+                sql = "INSERT INTO tb_produto (nome_produto, sabor_produto, quantidade_produto) VALUES (?, ?, ?)";
+
+                try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                    stmt.setString(1, p.getNome().toLowerCase());
+                    stmt.setString(2, p.getSabor().toLowerCase());
+                    stmt.setInt(3, p.getQuantidade());
+
+                    // Executa a ação no banco
+                    stmt.executeUpdate();
+                }
+            }
+            System.out.println(linhasAfetadas > 0 ? "Produto incrementado no estoque com sucesso!" : "Produto inserido com sucesso!");
 
         } catch (SQLException e) {
             System.out.println("Erro ao tentar salvar o produto" + e);

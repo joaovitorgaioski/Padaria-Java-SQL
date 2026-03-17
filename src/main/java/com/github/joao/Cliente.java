@@ -1,21 +1,21 @@
 package com.github.joao;
 
 public class Cliente extends Pessoa {
-    private boolean filiacao;
+    private int filiacao;
 
     public Cliente() {
     }
 
-    public Cliente(int id, String nome, String cpf, String telefone, String endereco, boolean filiacao) {
+    public Cliente(int id, String nome, String cpf, String telefone, String endereco, int filiacao) {
         super(id, nome, cpf, telefone, endereco);
         this.filiacao = filiacao;
     }
 
-    public boolean getFiliacao() {
+    public int getFiliacao() {
         return this.filiacao;
     }
 
-    public void setFiliacao(boolean filiacao) {
+    public void setFiliacao(int filiacao) {
         this.filiacao = filiacao;
     }
 }
