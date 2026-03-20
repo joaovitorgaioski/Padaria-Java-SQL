@@ -1,7 +1,5 @@
 package com.github.joao;
 
-import java.nio.charset.StandardCharsets;
-import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class App {
@@ -23,7 +21,6 @@ public class App {
                 case 1:
                     System.out.println("Quem você deseja cadastrar?\n(1) - Cliente \t(2) - Funcionário");
                     op = scan.nextInt();
-                    scan.nextLine();
 
                     Pessoa p = criarPessoa();
 
@@ -86,18 +83,23 @@ public class App {
     }
 
     public static Pessoa criarPessoa() {
-        Scanner scan = new Scanner(System.in);
-        Pessoa p = new Pessoa();
+        try {
+            Scanner scan = new Scanner(System.in);
+            Pessoa p = new Pessoa();
 
-        System.out.print("Nome: ");
-        p.setNome(scan.next());
-        System.out.print("CPF: ");
-        p.setCpf(scan.next());
-        System.out.print("Telefone: ");
-        p.setTelefone(scan.next());
-        System.out.print("Endereço: ");
-        p.setEndereco(scan.next());
+            System.out.print("Nome: ");
+            p.setNome(scan.nextLine());
+            System.out.print("CPF: ");
+            p.setCpf(scan.nextLine());
+            System.out.print("Telefone: ");
+            p.setTelefone(scan.nextLine());
+            System.out.print("Endereço: ");
+            p.setEndereco(scan.nextLine());
 
-        return p;
+            return p;
+        } catch (IllegalArgumentException e) {
+            System.out.println("Erro na inserção dos dados!" + e);
+        }
+        return null;
     }
 }

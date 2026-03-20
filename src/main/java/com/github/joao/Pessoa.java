@@ -4,7 +4,8 @@ public class Pessoa {
     private int id;
     private String nome, cpf, telefone, endereco;
 
-    public Pessoa() {}
+    public Pessoa() {
+    }
 
     public Pessoa(int id, String nome, String cpf, String telefone, String endereco) {
         this.id = id;
@@ -18,36 +19,42 @@ public class Pessoa {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getNome() {
         return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
     }
 
     public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
     public String getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
     public String getEndereco() {
         return endereco;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setNome(String nome) {
+        if (!nome.isBlank() && nome.length() <= 100)
+            this.nome = nome;
+        else throw new IllegalArgumentException("Nome deve ter menos de 100 caracteres e não pode ser vazio!");
+    }
+
+    public void setCpf(String cpf) {
+        if (!cpf.isBlank() && cpf.length() == 11)
+            this.cpf = cpf;
+        else throw new IllegalArgumentException("CPF deve possuir 11 caracteres e não pode estar vazio!");
+    }
+
+    public void setTelefone(String telefone) {
+        if (!telefone.isBlank() && telefone.length() == 11)
+            this.telefone = telefone;
+        else throw new IllegalArgumentException("Telefone deve seguir o padrão de 11 caracteres começando pelo ddd. Ex: 41...");
     }
 
     public void setEndereco(String endereco) {

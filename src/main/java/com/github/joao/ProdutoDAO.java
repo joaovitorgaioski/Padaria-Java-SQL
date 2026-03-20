@@ -35,7 +35,7 @@ public class ProdutoDAO {
             conn.close();
 
         } catch (SQLException e) {
-            System.out.println("Erro na leitura do banco" + e);
+            System.out.println("Erro na leitura do banco!" + e);
         }
         return lista;
     }
@@ -45,7 +45,7 @@ public class ProdutoDAO {
         // Primeiro tenta realizar incremento com UPDATE
         String sql = "UPDATE tb_produto SET quantidade_produto = quantidade_produto + ? WHERE nome_produto = ? AND sabor_produto = ?";
 
-        // Aqui usei um Try-With-Resources pq ele fecha a conexão automaticamente ao finalizar o escopo do try
+        // Usei um Try-With-Resources pq ele fecha a conexão automaticamente ao finalizar o escopo do try
         try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement stm = conn.prepareStatement(sql)
         ) {
@@ -73,7 +73,7 @@ public class ProdutoDAO {
             System.out.println(linhasAfetadas > 0 ? "Produto incrementado no estoque com sucesso!" : "Produto inserido com sucesso!");
 
         } catch (SQLException e) {
-            System.out.println("Erro ao tentar salvar o produto" + e);
+            System.out.println("Erro ao tentar salvar o produto!" + e);
         }
     }
 }

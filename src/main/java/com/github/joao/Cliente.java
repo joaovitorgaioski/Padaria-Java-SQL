@@ -16,6 +16,8 @@ public class Cliente extends Pessoa {
     }
 
     public void setFiliacao(int filiacao) {
-        this.filiacao = filiacao;
+        if (filiacao == 0 || filiacao == 1)
+            this.filiacao = filiacao;
+        else throw new IllegalArgumentException("Escolha uma das opção disponíveis (0 ou 1)!");
     }
 }

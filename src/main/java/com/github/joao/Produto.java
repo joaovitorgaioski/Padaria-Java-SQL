@@ -18,32 +18,36 @@ public class Produto {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getNome() {
         return nome;
-    }
-
-    public void setNome(String nome) {
-        if (nome.length() <= 50 && !nome.isBlank())
-            this.nome = nome;
-        else
-            throw new IllegalArgumentException("Nome deve conter menos de 50 caracterese e não pode ser vazio!");
     }
 
     public String getSabor() {
         return sabor;
     }
 
-    public void setSabor(String sabor) {
-        this.sabor = sabor;
-    }
-
     public int getQuantidade() {
         return quantidade;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setNome(String nome) {
+        if (nome.length() <= 50 && !nome.isBlank())
+            this.nome = nome;
+        else throw new IllegalArgumentException("Nome deve conter menos de 50 caracteres e e não pode ser vazio!");
+    }
+
+
+    public void setSabor(String sabor) {
+        if (sabor.length() <= 20 && !sabor.isBlank())
+            this.sabor = sabor;
+        else
+            throw new IllegalArgumentException("Sabor deve conter menos de 20 caracteres e não pode ser vazio!");
+    }
+
 
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
