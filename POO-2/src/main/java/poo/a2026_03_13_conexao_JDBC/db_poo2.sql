@@ -1,8 +1,0 @@
-DROP DATABASE IF EXISTS db_poo;
-CREATE DATABASE db_poo;
-USE db_poo;
-
-CREATE TABLE tb_aluno (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(100)
-);
