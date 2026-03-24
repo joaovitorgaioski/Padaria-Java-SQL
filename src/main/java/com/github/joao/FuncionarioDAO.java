@@ -20,14 +20,14 @@ public class FuncionarioDAO {
              PreparedStatement stm = conn.prepareStatement(sql)
         ) {
             stm.setInt(1, chaveGerada);
-            stm.setInt(2, f.getHorarioTrabalho());
+            stm.setInt(2, f.getHorasTrabalho());
             stm.setDouble(3, f.getSalario());
 
             stm.executeUpdate();
             System.out.println("Funcionário cadastrado com sucesso!");
 
         } catch (SQLException e) {
-            System.out.println("Erro ao tentar cadastrar cliente" + e);
+            System.out.println("Erro ao tentar cadastrar funcionário" + e);
         }
     }
 }

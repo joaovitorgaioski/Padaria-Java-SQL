@@ -10,42 +10,42 @@ public class App {
         System.out.println("-----==== Sistema para Padaria ====-----");
 
         while (op != 0) {
+            linha();
             System.out.println("""
                     (1) - Cadastrar pessoa \t\t(2) - Inserir produto
                     (3) - Inserir ingrediente \t(4) - Iniciar pedido
                     (5) - Listar \t\t\t\t(0) - SAIR""");
             op = scan.nextInt();
-            scan.nextLine(); // Limpeza do buffer
 
             switch (op) {
                 case 1:
+                    System.out.println("----===== Cadastrar Pessoa =====----");
                     System.out.println("Quem você deseja cadastrar?\n(1) - Cliente \t(2) - Funcionário");
                     op = scan.nextInt();
 
-                    Pessoa p = criarPessoa();
-
                     switch (op) {
                         case 1:
-                            // instanceof verifica se são tipos compatíveis
-                            if (p instanceof Cliente c) {
-                                System.out.println("Filiado?\t(0) - Não\t(1) - Sim");
-                                c.setFiliacao(scan.nextInt());
+                            Cliente c = new Cliente();
+                            preencherDados(c);
 
-                                ClienteDAO cDAO = new ClienteDAO();
-                                cDAO.cadastrar(c);
-                            }
+                            System.out.println("Filiado?\n(0) - Não\t(1) - Sim");
+                            c.setFiliacao(scan.nextInt());
+
+                            ClienteDAO cDAO = new ClienteDAO();
+                            cDAO.cadastrar(c);
                             break;
 
                         case 2:
-                            if (p instanceof Funcionario f) {
-                                System.out.print("Horas de trabalho diário: ");
-                                f.setHorarioTrabalho(scan.nextInt());
-                                System.out.print("Salário: ");
-                                f.setSalario(scan.nextDouble());
+                            Funcionario f = new Funcionario();
+                            preencherDados(f);
 
-                                FuncionarioDAO fDAO = new FuncionarioDAO();
-                                fDAO.cadastrar(f);
-                            }
+                            System.out.print("Horas de trabalho diário: ");
+                            f.setHorasTrabalho(scan.nextInt());
+                            System.out.print("Salário: ");
+                            f.setSalario(scan.nextDouble());
+
+                            FuncionarioDAO fDAO = new FuncionarioDAO();
+                            fDAO.cadastrar(f);
                             break;
 
                         default:
@@ -55,7 +55,7 @@ public class App {
                     break;
 
                 case 2:
-                    System.out.println("-----==== Inserir Produto ====-----");
+                    System.out.println("----===== Inserir Produto =====----");
                     Produto prod = new Produto();
 
                     try {
@@ -74,7 +74,7 @@ public class App {
                     break;
 
                 default:
-                    System.out.println("Escolha uma das opções disponíveis!");
+                    System.out.println("Escolha uma opção válida!");
                     break;
             }
 
@@ -82,10 +82,9 @@ public class App {
         }
     }
 
-    public static Pessoa criarPessoa() {
+    public static void preencherDados(Pessoa p) {
         try {
             Scanner scan = new Scanner(System.in);
-            Pessoa p = new Pessoa();
 
             System.out.print("Nome: ");
             p.setNome(scan.nextLine());
@@ -96,10 +95,12 @@ public class App {
             System.out.print("Endereço: ");
             p.setEndereco(scan.nextLine());
 
-            return p;
         } catch (IllegalArgumentException e) {
             System.out.println("Erro na inserção dos dados!" + e);
         }
-        return null;
+    }
+
+    public static void linha() {
+        System.out.println("-----" + "=".repeat(30) + "-----");
     }
 }

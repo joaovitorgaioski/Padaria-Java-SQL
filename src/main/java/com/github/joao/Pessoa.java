@@ -52,9 +52,9 @@ public class Pessoa {
     }
 
     public void setTelefone(String telefone) {
-        if (!telefone.isBlank() && telefone.length() == 11)
+        if (!telefone.isBlank() && telefone.length() >= 11 && telefone.length() <= 20)
             this.telefone = telefone;
-        else throw new IllegalArgumentException("Telefone deve seguir o padrão de 11 caracteres começando pelo ddd. Ex: 41...");
+        else throw new IllegalArgumentException("Telefone deve ter no mínimo 11 e no máximo 20 caracteres e não pode estar vazio!");
     }
 
     public void setEndereco(String endereco) {
