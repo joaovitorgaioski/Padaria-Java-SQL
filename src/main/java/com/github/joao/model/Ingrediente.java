@@ -1,6 +1,4 @@
-package com.github.joao;
-
-import java.util.Date;
+package com.github.joao.model;
 
 public class Ingrediente {
     private int id;

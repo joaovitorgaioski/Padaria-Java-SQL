@@ -1,4 +1,7 @@
-package com.github.joao;
+package com.github.joao.dao;
+
+import com.github.joao.util.ConnectionFactory;
+import com.github.joao.model.Pessoa;
 
 import java.sql.*;
 

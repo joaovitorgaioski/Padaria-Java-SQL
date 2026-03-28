@@ -1,4 +1,4 @@
-package com.github.joao;
+package com.github.joao.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

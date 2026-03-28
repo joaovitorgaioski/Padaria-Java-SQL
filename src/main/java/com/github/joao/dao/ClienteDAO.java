@@ -1,4 +1,7 @@
-package com.github.joao;
+package com.github.joao.dao;
+
+import com.github.joao.model.Cliente;
+import com.github.joao.util.ConnectionFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

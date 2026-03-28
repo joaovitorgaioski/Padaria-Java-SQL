@@ -1,4 +1,4 @@
-package com.github.joao;
+package com.github.joao.model;
 
 public class Funcionario extends Pessoa {
     private int horasTrabalho;

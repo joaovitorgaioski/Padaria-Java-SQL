@@ -1,4 +1,4 @@
-package com.github.joao;
+package com.github.joao.model;
 
 public class Produto {
     private int id, quantidade;
@@ -40,14 +40,12 @@ public class Produto {
         else throw new IllegalArgumentException("Nome deve conter menos de 50 caracteres e e não pode ser vazio!");
     }
 
-
     public void setSabor(String sabor) {
         if (sabor.length() <= 20 && !sabor.isBlank())
             this.sabor = sabor;
         else
             throw new IllegalArgumentException("Sabor deve conter menos de 20 caracteres e não pode ser vazio!");
     }
-
 
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;

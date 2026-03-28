@@ -1,4 +1,12 @@
-package com.github.joao;
+package com.github.joao.view;
+
+import com.github.joao.model.Cliente;
+import com.github.joao.model.Funcionario;
+import com.github.joao.model.Pessoa;
+import com.github.joao.model.Produto;
+import com.github.joao.dao.ClienteDAO;
+import com.github.joao.dao.FuncionarioDAO;
+import com.github.joao.dao.ProdutoDAO;
 
 import java.util.Scanner;
 
@@ -7,21 +15,22 @@ public class App {
         Scanner scan = new Scanner(System.in);
         int op = -1;
 
-        System.out.println("-----==== Sistema para Padaria ====-----");
-
         while (op != 0) {
             linha();
             System.out.println("""
-                    (1) - Cadastrar pessoa \t\t(2) - Inserir produto
-                    (3) - Inserir ingrediente \t(4) - Iniciar pedido
-                    (5) - Listar \t\t\t\t(0) - SAIR""");
-            op = scan.nextInt();
+                    [1] - Cadastrar pessoa
+                    [2] - Inserir produto
+                    [3] - Inserir ingrediente
+                    [4] - Iniciar pedido
+                    [5] - Listar
+                    [0] - SAIR""");
+            op = Integer.parseInt(scan.nextLine()); // Limpeza de buffer
 
             switch (op) {
                 case 1:
                     System.out.println("----===== Cadastrar Pessoa =====----");
                     System.out.println("Quem você deseja cadastrar?\n(1) - Cliente \t(2) - Funcionário");
-                    op = scan.nextInt();
+                    op = Integer.parseInt(scan.nextLine());
 
                     switch (op) {
                         case 1:
@@ -29,7 +38,7 @@ public class App {
                             preencherDados(c);
 
                             System.out.println("Filiado?\n(0) - Não\t(1) - Sim");
-                            c.setFiliacao(scan.nextInt());
+                            c.setFiliacao(Integer.parseInt(scan.nextLine()));
 
                             ClienteDAO cDAO = new ClienteDAO();
                             cDAO.cadastrar(c);
@@ -40,9 +49,9 @@ public class App {
                             preencherDados(f);
 
                             System.out.print("Horas de trabalho diário: ");
-                            f.setHorasTrabalho(scan.nextInt());
+                            f.setHorasTrabalho(Integer.parseInt(scan.nextLine()));
                             System.out.print("Salário: ");
-                            f.setSalario(scan.nextDouble());
+                            f.setSalario(Double.parseDouble(scan.nextLine()));
 
                             FuncionarioDAO fDAO = new FuncionarioDAO();
                             fDAO.cadastrar(f);
@@ -64,7 +73,7 @@ public class App {
                         System.out.print("Sabor: ");
                         prod.setSabor(scan.nextLine());
                         System.out.print("Quantidade: ");
-                        prod.setQuantidade(scan.nextInt());
+                        prod.setQuantidade(Integer.parseInt(scan.nextLine()));
 
                         ProdutoDAO prodDAO = new ProdutoDAO();
                         prodDAO.salvar(prod);

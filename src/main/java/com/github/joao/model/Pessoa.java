@@ -1,4 +1,4 @@
-package com.github.joao;
+package com.github.joao.model;
 
 public class Pessoa {
     private int id;
