@@ -10,26 +10,28 @@ import java.util.Map;
 public class ProdutoDAO {
 
     // Para implementar o metodo listar, traduzimos de SQL para Objeto
+
     public List<Produto> listar() {
         String sql = "SELECT * FROM tb_produto";
-        List<Produto> lista = new ArrayList<>();
 
+        List<Produto> produtos = new ArrayList<>();
         List<Map<String, Object>> result = DatabaseHelper.executeQuery(sql);
 
-        for (Map<String, Object> row : result) {
+        for (Map<String, Object> linha : result) {
             Produto p = new Produto();
 
-            p.setNome((String) row.get("nome_produto"));
-            p.setSabor((String) row.get("sabor_produto"));
-            p.setQuantidade((int) row.get("quantidade_produto"));
+            p.setNome((String) linha.get("nome_produto"));
+            p.setSabor((String) linha.get("sabor_produto"));
+            p.setQuantidade((int) linha.get("quantidade_produto"));
 
-            lista.add(p);
+            produtos.add(p);
         }
-        return lista;
+        return produtos;
     }
 
-    // Para implementar o metodo salvar, traduzimos de Objeto para SQL
-    public void salvar(Produto p) {
+    // Para implementar o metodo inserir, traduzimos de Objeto para SQL
+
+    public int inserir(Produto p) {
         // Primeiro tenta realizar incremento com UPDATE
         String sql = "UPDATE tb_produto SET quantidade_produto = quantidade_produto + ? WHERE nome_produto = ? AND sabor_produto = ?";
 
@@ -42,6 +44,6 @@ public class ProdutoDAO {
             DatabaseHelper.executeCommand(sql, p.getNome().toLowerCase(), p.getSabor().toLowerCase(), p.getQuantidade());
         }
 
-        System.out.println(linhasAfetadas > 0 ? "Produto incrementado no estoque com sucesso!" : "Produto inserido com sucesso!");
+        return linhasAfetadas;
     }
 }

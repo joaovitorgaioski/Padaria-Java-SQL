@@ -7,11 +7,10 @@ public class Produto {
     public Produto() {
     }
 
-    public Produto(String sabor, String nome, int quantidade, int id) {
-        this.sabor = sabor;
+    public Produto(String nome, String sabor, int quantidade) {
         this.nome = nome;
+        this.sabor = sabor;
         this.quantidade = quantidade;
-        this.id = id;
     }
 
     public int getId() {

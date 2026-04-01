@@ -25,7 +25,8 @@ public class DatabaseHelper {
         } catch (SQLException e) {
             System.out.println("Erro na interação com o banco!" + e);
         }
-        return 0;
+        // Retorna -1 indicando erro
+        return -1;
     }
 
     public static List<Map<String, Object>> executeQuery(String sql, Object... param) {
