@@ -11,14 +11,11 @@ public class FuncionarioController {
         this.dao = new FuncionarioDAO();
     }
 
-    public int cadastrar(Funcionario f) {
+    public void cadastrar(Funcionario f) {
         // Geramos a chave em Pessoa e obtivemos ela aqui para cadastrar Funcionario
-        PessoaDAO pDAO = new PessoaDAO();
-        int chaveGerada = pDAO.cadastrar(f);
-        if (chaveGerada == -1) return -1;
-
+        int chaveGerada = new PessoaDAO().cadastrar(f);
         f.setId(chaveGerada);
 
-        return dao.cadastrar(f);
+        dao.cadastrar(f);
     }
 }

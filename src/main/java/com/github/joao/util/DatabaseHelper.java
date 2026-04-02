@@ -23,10 +23,8 @@ public class DatabaseHelper {
             return stm.executeUpdate();
 
         } catch (SQLException e) {
-            System.out.println("Erro na interação com o banco!" + e);
+            throw new RuntimeException("Erro na interação com o banco! ", e);
         }
-        // Retorna -1 indicando erro
-        return -1;
     }
 
     public static List<Map<String, Object>> executeQuery(String sql, Object... param) {
@@ -56,7 +54,7 @@ public class DatabaseHelper {
             }
 
         } catch (SQLException e) {
-            System.out.println("Erro na interação com o banco!" + e);
+            throw new RuntimeException("Erro na leitura do banco! ", e);
         }
         return lista;
     }

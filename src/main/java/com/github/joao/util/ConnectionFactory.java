@@ -15,7 +15,7 @@ public class ConnectionFactory {
         try {
             return DriverManager.getConnection(URL, USER, PASS);
         } catch (SQLException e) {
-            throw new RuntimeException("Erro ao conectar ao banco da padaria: ", e);
+            throw new RuntimeException("Erro ao conectar ao banco da padaria! ", e);
         }
     }
 }

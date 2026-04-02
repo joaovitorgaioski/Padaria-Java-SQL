@@ -12,10 +12,9 @@ public class ProdutoController {
         this.dao = new ProdutoDAO();
     }
 
-    public void inserir(Produto p) {
-        int linhasAfetadas = dao.inserir(p);
-
-        System.out.println(linhasAfetadas > 0 ? "Produto incrementado no estoque com sucesso!" : "Produto inserido com sucesso!");
+    public int inserir(Produto p) {
+        return dao.inserir(p);
+        // System.out.println(linhasAfetadas > 0 ? "Produto incrementado no estoque com sucesso!" : "Produto inserido com sucesso!");
     }
 
     public List<Produto> listar() {

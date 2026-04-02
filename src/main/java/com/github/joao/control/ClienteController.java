@@ -11,14 +11,11 @@ public class ClienteController {
         this.dao = new ClienteDAO();
     }
 
-    public int cadastrar(Cliente c) {
-        // Geramos a chave em Pessoa e obtivemos ela aqui para cadastrar Cliente
-        PessoaDAO pDAO = new PessoaDAO();
-        int chaveGerada = pDAO.cadastrar(c);
-        if (chaveGerada == -1) return -1;
-
+    public void cadastrar(Cliente c) {
+        // Geramos a chave em Pessoa e obtivemos ela aqui para cadastrar Cliente. Caso de erro, a excessão já é lançada
+        int chaveGerada = new PessoaDAO().cadastrar(c);
         c.setId(chaveGerada);
 
-        return dao.cadastrar(c);
+        dao.cadastrar(c);
     }
 }

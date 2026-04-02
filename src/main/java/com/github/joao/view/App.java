@@ -5,11 +5,17 @@ import com.github.joao.control.FuncionarioController;
 import com.github.joao.model.Cliente;
 import com.github.joao.model.Funcionario;
 
-import java.sql.SQLException;
 import java.util.Scanner;
 
+/*
+    O Tratamento de Excessões é importante, pois caso ocorra o lançamento de uma em qualquer camada, ela será jogada
+    até a camada mais próxima do usuário, que é esta, a View. A lógica é que quando nós fazemos um 'throw new ...' o
+    Java para a execução do código e a exceção "sobe" através de cada metodo até chegar em um 'catch' para tratar essa
+    exceção, no caso o 'catch' esta aqui nesse código.
+ */
+
 public class App {
-    static void main(String[] args) {
+    public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
         int op = -1;
 
@@ -31,6 +37,10 @@ public class App {
             linha();
 
             switch (op) {
+                case 1, 3, 4, 5:
+                    System.out.println("Ainda não implementado!");
+                    break;
+
                 case 2:
                     System.out.println("[1] - Cliente\t [2] - Funcionário");
                     op = Integer.parseInt(scan.nextLine());
@@ -41,8 +51,7 @@ public class App {
                                 Cliente c = new Cliente();
                                 pessoaView.preencherDadosCliente(c);
 
-                                if (clienteController.cadastrar(c) == -1) break;
-
+                                clienteController.cadastrar(c);
                                 System.out.println(c.getFiliacao() == 0 ? "Cliente cadastrado com sucesso!" : "Cliente filiado cadastrado com sucesso!");
                                 break;
 
@@ -50,27 +59,34 @@ public class App {
                                 Funcionario f = new Funcionario();
                                 pessoaView.preencherDadosFuncionario(f);
 
-                                if (funcionarioController.cadastrar(f) == -1) break;
-
+                                funcionarioController.cadastrar(f);
                                 System.out.println("Funcionário cadastrado com sucesso!");
                                 break;
 
                             default:
+                                op = -1;
                                 break;
                         }
-
                     } catch (IllegalArgumentException e) {
-                        System.out.println("Erro no cadastro!" + e);
+                        System.out.println("Erro no cadastro: " + e.getMessage());
+                    } catch (RuntimeException e) {
+                        System.out.println("Erro na execução: " + e.getMessage());
                     }
+                    break;
+
+                case 0:
+                    System.out.println("Deseja realmente sair?\n[0] - Sair\t [1] - Não");
+                    op = Integer.parseInt(scan.nextLine());
+                    if (op == 0) System.out.println("Bye");
+
                     break;
 
                 default:
                     System.out.println("Escolha uma das opções disponíveis!");
-                    if (op != 0) op = -1;
                     break;
             }
+            if (op != 0) op = -1;
         }
-
         scan.close();
     }
 
