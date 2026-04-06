@@ -2,8 +2,10 @@ package com.github.joao.view;
 
 import com.github.joao.control.ClienteController;
 import com.github.joao.control.FuncionarioController;
+import com.github.joao.control.ProdutoController;
 import com.github.joao.model.Cliente;
 import com.github.joao.model.Funcionario;
+import com.github.joao.model.Produto;
 
 import java.util.Scanner;
 
@@ -21,7 +23,8 @@ public class App {
 
         ClienteController clienteController = new ClienteController();
         FuncionarioController funcionarioController = new FuncionarioController();
-        PessoaView pessoaView = new PessoaView(scan);
+        ProdutoController produtoController = new ProdutoController();
+        InputView inputView = new InputView(scan);
 
         while (op != 0) {
             linha();
@@ -33,23 +36,23 @@ public class App {
                     [5] - Listar dados
                     [0] - SAIR
                     Escolha uma opção:""");
-            op = Integer.parseInt(scan.nextLine());
+            op = lerInteiro(scan);
             linha();
 
             switch (op) {
-                case 1, 3, 4, 5:
+                case 1, 4, 5:
                     System.out.println("Ainda não implementado!");
                     break;
 
                 case 2:
                     System.out.println("[1] - Cliente\t [2] - Funcionário");
-                    op = Integer.parseInt(scan.nextLine());
+                    op = lerInteiro(scan);
 
                     try {
                         switch (op) {
                             case 1:
                                 Cliente c = new Cliente();
-                                pessoaView.preencherDadosCliente(c);
+                                inputView.preencherDadosCliente(c);
 
                                 clienteController.cadastrar(c);
                                 System.out.println(c.getFiliacao() == 0 ? "Cliente cadastrado com sucesso!" : "Cliente filiado cadastrado com sucesso!");
@@ -57,7 +60,7 @@ public class App {
 
                             case 2:
                                 Funcionario f = new Funcionario();
-                                pessoaView.preencherDadosFuncionario(f);
+                                inputView.preencherDadosFuncionario(f);
 
                                 funcionarioController.cadastrar(f);
                                 System.out.println("Funcionário cadastrado com sucesso!");
@@ -74,9 +77,26 @@ public class App {
                     }
                     break;
 
+                case 3:
+                    try {
+                        Produto p = new Produto();
+                        inputView.preencherDadosProduto(p);
+
+                        if (produtoController.inserir(p) > 0)
+                            System.out.println("Produto incrementado no estoque com sucesso!");
+                        else
+                            System.out.println("Produto inserido com sucesso!");
+
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("Erro na inserção de produtos: " + e.getMessage());
+                    } catch (RuntimeException e) {
+                        System.out.println("Erro na execução: " + e.getMessage());
+                    }
+                    break;
+
                 case 0:
                     System.out.println("Deseja realmente sair?\n[0] - Sair\t [1] - Não");
-                    op = Integer.parseInt(scan.nextLine());
+                    op = lerInteiro(scan);
                     if (op == 0) System.out.println("Bye");
 
                     break;
@@ -88,6 +108,14 @@ public class App {
             if (op != 0) op = -1;
         }
         scan.close();
+    }
+
+    public static int lerInteiro(Scanner scan) {
+        try {
+            return Integer.parseInt(scan.nextLine());
+        } catch (NumberFormatException e) {
+            return -1;
+        }
     }
 
     public static void linha() {

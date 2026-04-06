@@ -47,6 +47,8 @@ public class Produto {
     }
 
     public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
+        if (quantidade > 0)
+            this.quantidade = quantidade;
+        else throw new IllegalArgumentException("Coloque uma quantidade adequada e não nula!");
     }
 }

@@ -3,14 +3,15 @@ package com.github.joao.view;
 import com.github.joao.model.Cliente;
 import com.github.joao.model.Funcionario;
 import com.github.joao.model.Pessoa;
+import com.github.joao.model.Produto;
 
 import java.util.Scanner;
 
 // Injeção de Dependência, usamos o mesmo scan passado de App
-public class PessoaView {
+public class InputView {
     private Scanner scan;
 
-    public PessoaView(Scanner scan) {
+    public InputView(Scanner scan) {
         this.scan = scan;
     }
 
@@ -39,5 +40,14 @@ public class PessoaView {
         f.setHorasTrabalho(Integer.parseInt(scan.nextLine()));
         System.out.print("Salário: ");
         f.setSalario(Double.parseDouble(scan.nextLine()));
+    }
+
+    public void preencherDadosProduto(Produto p) {
+        System.out.print("Nome: ");
+        p.setNome(scan.nextLine());
+        System.out.print("Sabor: ");
+        p.setSabor(scan.nextLine());
+        System.out.print("Quantidade: ");
+        p.setQuantidade(App.lerInteiro(scan));
     }
 }
