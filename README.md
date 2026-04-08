@@ -1,11 +1,17 @@
 # Sistema para Padaria (em desenvolvimento)
 
->Projeto pessoal de criação de sistema para padaria usando Java com integração JDBC para banco de dados SQL.
+>Projeto pessoal de criação de sistema para padaria usando Java, JavaFX e integração com banco.
+
+Ferramentas Utilizadas:
+- JavaFX, JDBC, MySQL (MariaDB), Maven. 
 
 Funcionalidades:
-- Cadastrar clientes e funcionários;
+- Processar venda (metodo de pagamento, quantidade de produtos);
 - Inserir produtos (nome, sabor, quantidade);
 - Inserir ingredientes (nome, unidade, quantidade);
+- Cadastrar clientes e funcionários;
 - Ao inserir um novo produto, é opcional marcar se foram gastos ingredientes. Se foram gastos, é decrementado do banco a quantidade da determinada unidade;
-- Realizar pedido (metodo de pagamento, quantidade de produtos);
-- Pedido pode possuir dados de entrega com um funcionário destinado a tal.
+- Um pedido pode possuir dados de entrega com um funcionário destinado a tal.
+
+ 
+<i>OBS: Código do banco será disponibilizado futuramente.
