@@ -1,13 +1,13 @@
-package com.github.joao.control;
+package com.github.joao.service;
 
 import com.github.joao.dao.FuncionarioDAO;
 import com.github.joao.dao.PessoaDAO;
 import com.github.joao.model.Funcionario;
 
-public class FuncionarioController {
+public class FuncionarioService {
     private FuncionarioDAO dao;
 
-    public FuncionarioController() {
+    public FuncionarioService() {
         this.dao = new FuncionarioDAO();
     }
 

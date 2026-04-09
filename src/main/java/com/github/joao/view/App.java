@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 public class App extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/App.fxml"));
 
         primaryStage.setTitle("Padaria");

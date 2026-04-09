@@ -18,7 +18,10 @@
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
             <ToggleButton fx:id="btnVendas" mnemonicParsing="false" onAction="#selecionarModulo" text="Vendas" />
+            <ToggleButton fx:id="btnProdutos" layoutX="10.0" layoutY="60.0" mnemonicParsing="false" onAction="#selecionarModulo" text="Produtos" />
+            <ToggleButton fx:id="btnIngredientes" layoutX="10.0" layoutY="85.0" mnemonicParsing="false" onAction="#selecionarModulo" text="Ingredientes" />
             <ToggleButton fx:id="btnClientes" mnemonicParsing="false" onAction="#selecionarModulo" text="Clientes" />
+            <ToggleButton fx:id="btnFuncionarios" layoutX="10.0" layoutY="35.0" mnemonicParsing="false" onAction="#selecionarModulo" text="Funcionários" />
          </children>
       </VBox>
    </left>

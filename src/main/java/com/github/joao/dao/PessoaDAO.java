@@ -1,9 +1,14 @@
 package com.github.joao.dao;
 
+import com.github.joao.model.Cliente;
 import com.github.joao.util.ConnectionFactory;
 import com.github.joao.model.Pessoa;
+import com.github.joao.util.DatabaseHelper;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class PessoaDAO {
     // Vai retornar o ID cadastrado, para isso usamos o RETURN_GENERATED_KEYS no prepareStatement
@@ -31,4 +36,5 @@ public class PessoaDAO {
             throw new RuntimeException("Erro no cadastro de Pessoa! ", e);
         }
     }
+
 }

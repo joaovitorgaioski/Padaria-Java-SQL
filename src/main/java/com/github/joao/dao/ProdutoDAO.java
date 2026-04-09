@@ -14,8 +14,8 @@ public class ProdutoDAO {
     public List<Produto> listar() {
         String sql = "SELECT * FROM tb_produto";
 
-        List<Produto> produtos = new ArrayList<>();
         List<Map<String, Object>> result = DatabaseHelper.executeQuery(sql);
+        List<Produto> produtos = new ArrayList<>();
 
         for (Map<String, Object> linha : result) {
             Produto p = new Produto();
