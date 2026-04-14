@@ -13,7 +13,7 @@ import java.util.Map;
 public class PessoaDAO {
     // Vai retornar o ID cadastrado, para isso usamos o RETURN_GENERATED_KEYS no prepareStatement
     public int cadastrar(Pessoa p) {
-        String sql = "INSERT INTO tb_pessoa (nome_pessoa, cpf, telefone, endereco_pessoa) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO tb_pessoa (nome, cpf, telefone, endereco) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement stm = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)

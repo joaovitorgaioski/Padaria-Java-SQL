@@ -29,10 +29,10 @@ public class ClienteDAO {
             Cliente c = new Cliente();
 
             c.setId((int) linha.get("id_pessoa_PK"));
-            c.setNome((String) linha.get("nome_pessoa"));
+            c.setNome((String) linha.get("nome"));
             c.setCpf((String) linha.get("cpf"));
             c.setTelefone((String) linha.get("telefone"));
-            c.setEndereco((String) linha.get("endereco_pessoa"));
+            c.setEndereco((String) linha.get("endereco"));
             c.setFiliacao((int) linha.get("filiacao"));
 
             clientes.add(c);

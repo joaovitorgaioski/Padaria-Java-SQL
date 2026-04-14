@@ -1,5 +1,6 @@
 package com.github.joao.view;
 
+import com.github.joao.service.FuncionarioService;
 import javafx.fxml.FXML;
 import com.github.joao.model.Cliente;
 import com.github.joao.service.ClienteService;
@@ -24,10 +25,10 @@ public class ClienteController {
     @FXML
     public void initialize() {
         colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
-        colFiliacao.setCellValueFactory(new PropertyValueFactory<>("filiacao"));
         colCpf.setCellValueFactory(new PropertyValueFactory<>("cpf"));
         colTelefone.setCellValueFactory(new PropertyValueFactory<>("telefone"));
         colEndereco.setCellValueFactory(new PropertyValueFactory<>("endereco"));
+        colFiliacao.setCellValueFactory(new PropertyValueFactory<>("filiacao"));
 
         atualizarTabela();
     }

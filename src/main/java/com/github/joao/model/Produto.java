@@ -1,16 +1,20 @@
 package com.github.joao.model;
 
+import java.math.BigDecimal;
+
 public class Produto {
     private int id, quantidade;
     private String nome, sabor;
+    private BigDecimal preco;
 
     public Produto() {
     }
 
-    public Produto(String nome, String sabor, int quantidade) {
+    public Produto(String nome, String sabor, int quantidade, BigDecimal preco) {
         this.nome = nome;
         this.sabor = sabor;
         this.quantidade = quantidade;
+        this.preco = preco;
     }
 
     public int getId() {
@@ -27,6 +31,10 @@ public class Produto {
 
     public int getQuantidade() {
         return quantidade;
+    }
+
+    public BigDecimal getPreco() {
+        return preco;
     }
 
     public void setId(int id) {
@@ -50,5 +58,11 @@ public class Produto {
         if (quantidade > 0)
             this.quantidade = quantidade;
         else throw new IllegalArgumentException("Coloque uma quantidade adequada e não nula!");
+    }
+
+    public void setPreco(BigDecimal preco) {
+        if (preco.doubleValue() > 0 && preco.doubleValue() < 10000.00)
+            this.preco = preco;
+        else throw new IllegalArgumentException("Preço deve estar entre R$ 0 e R$ 10000 !");
     }
 }

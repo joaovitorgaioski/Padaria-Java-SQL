@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.ToggleButton;
+import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
@@ -16,11 +16,12 @@ public class AppController {
     private BorderPane paneApp;
 
     public void selecionarModulo(ActionEvent e) {
-        ToggleButton btnClicado = (ToggleButton) e.getSource();
+        Button btnClicado = (Button) e.getSource();
 
         switch (btnClicado.getId()) {
             case "btnVendas" -> trocarModulo("ModuloVendas");
             case "btnClientes" -> trocarModulo("ModuloClientes");
+            case "btnFuncionarios" -> trocarModulo("ModuloFuncionarios");
         }
     }
 
