@@ -33,7 +33,7 @@ public class FuncionarioDAO {
             f.setCpf((String) linha.get("cpf"));
             f.setTelefone((String) linha.get("telefone"));
             f.setEndereco((String) linha.get("endereco"));
-            f.setSalario((BigDecimal) linha.get("salario"));
+            f.setSalario(new BigDecimal(linha.get("salario").toString()));
             f.setHorasTrabalho((int) linha.get("horario_trabalho"));
 
             funcionarios.add(f);

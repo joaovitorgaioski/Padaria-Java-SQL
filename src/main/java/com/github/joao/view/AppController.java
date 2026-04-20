@@ -1,9 +1,11 @@
 package com.github.joao.view;
 
+import com.github.joao.util.MessageHelper;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 
@@ -32,7 +34,7 @@ public class AppController {
             paneApp.setCenter(moduloSelecionado);
 
         } catch (IOException e) {
-            System.out.println("Erro ao trocar de módulo!" + e.getMessage());
+            MessageHelper.mostrarMensagem(Alert.AlertType.ERROR, "Erro", "Erro ao trocar de módulo", e.getMessage());
         }
     }
 }
