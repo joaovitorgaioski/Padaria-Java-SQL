@@ -84,6 +84,17 @@ CREATE TABLE tb_pedido
         REFERENCES tb_dados_entrega (id_dados_entrega_PK)
 );
 
+CREATE TABLE tb_produto
+(
+    id_produto_PK INT           NOT NULL AUTO_INCREMENT,
+    nome          VARCHAR(50)   NOT NULL,
+    sabor         VARCHAR(20),
+    preco         DECIMAL(7, 2) NOT NULL,
+    quantidade    INT           NOT NULL,
+
+    PRIMARY KEY (id_produto_PK)
+);
+
 CREATE TABLE tb_item_pedido
 (
     id_pedido_PK_FK  INT NOT NULL,
@@ -95,17 +106,6 @@ CREATE TABLE tb_item_pedido
         REFERENCES tb_pedido (id_pedido_PK) ON DELETE CASCADE,
     CONSTRAINT fk_item_produto FOREIGN KEY (id_produto_PK_FK)
         REFERENCES tb_produto (id_produto_PK)
-);
-
-CREATE TABLE tb_produto
-(
-    id_produto_PK INT           NOT NULL AUTO_INCREMENT,
-    nome          VARCHAR(50)   NOT NULL,
-    sabor         VARCHAR(20),
-    preco         DECIMAL(7, 2) NOT NULL,
-    quantidade    INT           NOT NULL,
-
-    PRIMARY KEY (id_produto_PK)
 );
 
 CREATE TABLE tb_ingrediente
