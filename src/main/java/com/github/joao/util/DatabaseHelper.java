@@ -9,6 +9,13 @@ import java.util.Map;
 // Classe responsável por gerenciar comandos de inserção / alteração e de busca. Ótimo para evitar repetição de "try"
 public class DatabaseHelper {
 
+    /**
+     * Metodo auxiliar para executar comandos SQL que não sejam de buscar (query).
+     * Evita repetição de try-catch e simplifica o uso do JDBC.
+     * @param sql Comando SQL
+     * @param param Eventuais parâmetros para esse comando
+     * @return Quantidade de linhas afetadas
+     */
     public static int executeCommand(String sql, Object... param) {
         try (
                 Connection conn = ConnectionFactory.getConnection();
@@ -27,6 +34,13 @@ public class DatabaseHelper {
         }
     }
 
+    /**
+     * Metodo auxiliar para executar comandos de busca SQL (query) onde o retorno são múltiplos valores.
+     * Evita repetição de try-catch e simplifica o uso do JDBC.
+     * @param sql Comando SQL
+     * @param param Eventuais parâmetros para esse comando
+     * @return Lista com todas as linhas da consulta mapeadas com CHAVE (coluna da tabela) e VALOR (valor daquela coluna)
+     */
     public static List<Map<String, Object>> executeQuery(String sql, Object... param) {
         List<Map<String, Object>> lista = new ArrayList<>();
 
@@ -57,5 +71,31 @@ public class DatabaseHelper {
             throw new RuntimeException("Erro na leitura do banco! ", e);
         }
         return lista;
+    }
+
+    /**
+     * Metodo auxiliar para executar buscas SQL (query) em que deseja-se retornar apenas 1 linha.
+     * @param sql Comando SQL
+     * @param param Eventuais parâmetros para esse comando
+     * @return Mapeamento da query com CHAVE (coluna da tabela) e VALOR (valor daquela coluna)
+     */
+    public static Map<String, Object> executeQueryUniqueRow(String sql, Object... param) {
+        List<Map<String, Object>> result = executeQuery(sql, param);
+
+        return !result.isEmpty() ? result.get(0) : null;
+    }
+
+    /**
+     * Metodo auxiliar para executar buscas SQL (query) em que deseja-se retornar apenas 1 valor específico.
+     * @param sql Comando SQL
+     * @param param Eventuais parâmetros para esse comando
+     * @return Object do valor único da query ou retorna null caso não encontre nada
+     */
+    public static Object executeQueryUniqueValue(String sql, Object... param) {
+        Map<String, Object> result = executeQueryUniqueRow(sql, param);
+
+        if(result != null && !result.isEmpty())
+            return result.values().stream().findFirst().orElse(null);
+        return null;
     }
 }
