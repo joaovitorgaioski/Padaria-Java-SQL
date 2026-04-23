@@ -7,6 +7,11 @@ public class Pessoa {
     public Pessoa() {
     }
 
+    public Pessoa(int id, String nome) {
+        this.id = id;
+        this.nome = nome;
+    }
+
     public Pessoa(int id, String nome, String cpf, String telefone, String endereco) {
         this.id = id;
         this.nome = nome;
@@ -46,9 +51,8 @@ public class Pessoa {
     }
 
     public void setCpf(String cpf) {
-        if (!cpf.isBlank() && cpf.length() == 11)
-            this.cpf = cpf;
-        else throw new IllegalArgumentException("CPF deve possuir 11 caracteres e não pode estar vazio!");
+        validarCpf(cpf);
+        this.cpf = cpf;
     }
 
     public void setTelefone(String telefone) {
@@ -59,5 +63,10 @@ public class Pessoa {
 
     public void setEndereco(String endereco) {
         this.endereco = endereco;
+    }
+
+    public static void validarCpf(String cpf) {
+        if (cpf.isBlank() || cpf.length() != 11)
+            throw new IllegalArgumentException("CPF deve possuir 11 caracteres e não pode estar vazio!");
     }
 }
