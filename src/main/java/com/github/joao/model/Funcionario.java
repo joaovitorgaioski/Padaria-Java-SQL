@@ -9,6 +9,10 @@ public class Funcionario extends Pessoa {
     public Funcionario() {
     }
 
+    public Funcionario(int id, String nome) {
+        super(id, nome);
+    }
+
     public Funcionario(int id, String nome, String cpf, String telefone, String endereco, int horasTrabalho, BigDecimal salario) {
         super(id, nome, cpf, telefone, endereco);
         this.horasTrabalho = horasTrabalho;
