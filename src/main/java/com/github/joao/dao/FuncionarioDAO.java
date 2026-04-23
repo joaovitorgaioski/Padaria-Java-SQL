@@ -1,6 +1,7 @@
 package com.github.joao.dao;
 
 import com.github.joao.model.Funcionario;
+import com.github.joao.model.TipoPonto;
 import com.github.joao.util.DatabaseHelper;
 
 import java.math.BigDecimal;
@@ -40,5 +41,28 @@ public class FuncionarioDAO {
         }
 
         return funcionarios;
+    }
+
+    public int buscarIdPorCpf(String cpf) {
+        String sql = """
+                SELECT f.id_pessoa_PK_FK
+                FROM tb_funcionario f
+                JOIN tb_pessoa p ON f.id_pessoa_PK_FK = p.id_pessoa_PK
+                WHERE p.cpf = ?
+                """;
+
+        return (int) DatabaseHelper.executeQueryUniqueValue(sql, cpf);
+    }
+
+    public TipoPonto buscarTipoPontoAtual(int id) {
+        String sql = """
+                SELECT tipo FROM tb_ponto
+                WHERE id_funcionario_FK = ?
+                ORDER BY data_hora DESC LIMIT 1
+                """;
+
+        Object result = DatabaseHelper.executeQueryUniqueValue(sql, id);
+
+        return result == null ? null : TipoPonto.valueOf(result.toString());
     }
 }
