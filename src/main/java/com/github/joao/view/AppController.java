@@ -24,6 +24,7 @@ public class AppController {
             case "btnVendas" -> trocarModulo("ModuloVendas");
             case "btnClientes" -> trocarModulo("ModuloClientes");
             case "btnFuncionarios" -> trocarModulo("ModuloFuncionarios");
+            case "btnProdutos" -> trocarModulo("ModuloProdutos");
         }
     }
 
