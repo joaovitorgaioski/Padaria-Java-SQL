@@ -88,11 +88,30 @@ CREATE TABLE tb_produto
 (
     id_produto_PK INT           NOT NULL AUTO_INCREMENT,
     nome          VARCHAR(50)   NOT NULL,
-    sabor         VARCHAR(20),
     preco         DECIMAL(7, 2) NOT NULL,
     quantidade    INT           NOT NULL,
 
     PRIMARY KEY (id_produto_PK)
+);
+
+CREATE TABLE tb_sabor
+(
+    id_sabor_PK INT         NOT NULL AUTO_INCREMENT,
+    sabor       VARCHAR(50) NOT NULL,
+
+    PRIMARY KEY (id_sabor_PK)
+);
+
+CREATE TABLE tb_produto_sabor
+(
+    id_produto_PK_FK INT NOT NULL,
+    id_sabor_PK_FK   INT NOT NULL,
+
+    PRIMARY KEY (id_produto_PK_FK, id_sabor_PK_FK),
+    CONSTRAINT fk_produto FOREIGN KEY (id_produto_PK_FK)
+        REFERENCES tb_produto (id_produto_PK) ON DELETE CASCADE,
+    CONSTRAINT fk_sabor FOREIGN KEY (id_sabor_PK_FK)
+        REFERENCES tb_sabor (id_sabor_PK) ON DELETE CASCADE
 );
 
 CREATE TABLE tb_item_pedido
