@@ -101,7 +101,7 @@ public class FuncionarioController {
                     Funcionario f = row.getItem().getFuncionario();
 
                     VBox layout = new VBox(10);
-                    Label titulo = new Label("Últimos 2 pontos de " + row.getText());
+                    Label titulo = new Label("Pontos recentes de " + f.getNome());
                     layout.getChildren().add(titulo);
 
                     List<Ponto> ultimosDois = pontoService.listarUltimosDois(f.getId());
@@ -135,6 +135,7 @@ public class FuncionarioController {
             TipoPonto tipoRegistrado = pontoService.registrarPonto(txtCpfPonto.getText());
             MessageHelper.mostrarMensagem(Alert.AlertType.INFORMATION, "Sucesso", tipoRegistrado.name() + " registrada com sucesso!");
             atualizarPontos();
+            txtCpfPonto.clear();
 
         } catch (IllegalArgumentException ex) {
             MessageHelper.mostrarMensagem(Alert.AlertType.WARNING, "Atenção", "Erro na inserção de valores", ex.getMessage());
