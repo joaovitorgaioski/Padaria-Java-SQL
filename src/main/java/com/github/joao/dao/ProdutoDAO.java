@@ -1,8 +1,10 @@
 package com.github.joao.dao;
 
 import com.github.joao.model.Produto;
+import com.github.joao.model.Sabor;
 import com.github.joao.util.DatabaseHelper;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
@@ -20,9 +22,10 @@ public class ProdutoDAO {
         for (Map<String, Object> linha : result) {
             Produto p = new Produto();
 
-            p.setNome((String) linha.get("nome_produto"));
-            p.setSabor((String) linha.get("sabor_produto"));
-            p.setQuantidade((int) linha.get("quantidade_produto"));
+            p.setId((int) linha.get("id_produto_PK"));
+            p.setNome((String) linha.get("nome"));
+            p.setPreco(new BigDecimal(linha.get("preco").toString()));
+            p.setQuantidade((int) linha.get("quantidade"));
 
             produtos.add(p);
         }
@@ -31,19 +34,29 @@ public class ProdutoDAO {
 
     // Para implementar o metodo inserir, traduzimos de Objeto para SQL
 
-    public int inserir(Produto p) {
-        // Primeiro tenta realizar incremento com UPDATE
-        String sql = "UPDATE tb_produto SET quantidade_produto = quantidade_produto + ? WHERE nome_produto = ? AND sabor_produto = ?";
+//    public int inserir(Produto p) {
+//        return 0;
+//    }
 
-        int linhasAfetadas = DatabaseHelper.executeCommand(sql, p.getQuantidade(), p.getNome().toLowerCase(), p.getSabor().toLowerCase());
+    public List<Sabor> buscarSabores(int idProduto) {
+        String sql = """
+                SELECT s.* FROM tb_sabor s
+                JOIN tb_produto_sabor ps ON s.id_sabor_PK = ps.id_sabor_PK_FK
+                WHERE ps.id_produto_PK_FK = ?
+                """;
 
-        // Caso não haja mudanças (nenhuma linha foi alterada no UPDATE), realiza o INSERT
-        if (linhasAfetadas == 0) {
-            sql = "INSERT INTO tb_produto (nome_produto, sabor_produto, quantidade_produto) VALUES (?, ?, ?)";
+        List<Map<String, Object>> result = DatabaseHelper.executeQuery(sql, idProduto);
+        List<Sabor> sabores = new ArrayList<>();
 
-            DatabaseHelper.executeCommand(sql, p.getNome().toLowerCase(), p.getSabor().toLowerCase(), p.getQuantidade());
+        for (Map<String, Object> linha : result) {
+            Sabor s = new Sabor();
+
+            s.setId((int) linha.get("id_sabor_PK"));
+            s.setSabor(linha.get("sabor").toString());
+
+            sabores.add(s);
         }
 
-        return linhasAfetadas;
+        return sabores;
     }
 }

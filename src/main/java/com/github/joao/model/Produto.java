@@ -1,20 +1,24 @@
 package com.github.joao.model;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Produto {
     private int id, quantidade;
-    private String nome, sabor;
+    private String nome;
     private BigDecimal preco;
+    private List<Sabor> sabores = new ArrayList<>();
 
     public Produto() {
     }
 
-    public Produto(String nome, String sabor, int quantidade, BigDecimal preco) {
+    public Produto(String nome, int quantidade, BigDecimal preco, Sabor sabor) {
         this.nome = nome;
-        this.sabor = sabor;
         this.quantidade = quantidade;
         this.preco = preco;
+        this.sabores.add(sabor);
     }
 
     public int getId() {
@@ -25,16 +29,16 @@ public class Produto {
         return nome;
     }
 
-    public String getSabor() {
-        return sabor;
-    }
-
     public int getQuantidade() {
         return quantidade;
     }
 
     public BigDecimal getPreco() {
         return preco;
+    }
+
+    public List<Sabor> getSabores() {
+        return sabores;
     }
 
     public void setId(int id) {
@@ -47,13 +51,6 @@ public class Produto {
         else throw new IllegalArgumentException("Nome deve conter menos de 50 caracteres e e não pode ser vazio!");
     }
 
-    public void setSabor(String sabor) {
-        if (sabor.length() <= 20 && !sabor.isBlank())
-            this.sabor = sabor;
-        else
-            throw new IllegalArgumentException("Sabor deve conter menos de 20 caracteres e não pode ser vazio!");
-    }
-
     public void setQuantidade(int quantidade) {
         if (quantidade > 0)
             this.quantidade = quantidade;
@@ -64,5 +61,17 @@ public class Produto {
         if (preco.doubleValue() > 0 && preco.doubleValue() < 10000.00)
             this.preco = preco;
         else throw new IllegalArgumentException("Preço deve estar entre R$ 0 e R$ 10000 !");
+    }
+
+    public void setSabores(List<Sabor> sabores) {
+        this.sabores = sabores;
+    }
+
+    public String formatarSaboresString() {
+        if (sabores.isEmpty()) return "Sem sabor";
+
+        return sabores.stream()
+                .map(Sabor::getSabor)
+                .collect(Collectors.joining(", "));
     }
 }
