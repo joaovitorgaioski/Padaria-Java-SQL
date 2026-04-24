@@ -28,7 +28,7 @@ public class Funcionario extends Pessoa {
     }
 
     public void setHorasTrabalho(int horasTrabalho) {
-        if (horasTrabalho > 0 && horasTrabalho <= 10)
+        if (horasTrabalho > 0 && horasTrabalho <= 8)
             this.horasTrabalho = horasTrabalho;
         else
             throw new IllegalArgumentException("O funcionário pode trabalhar no máximo 10 horas diárias e este dado é obrigatório!");
