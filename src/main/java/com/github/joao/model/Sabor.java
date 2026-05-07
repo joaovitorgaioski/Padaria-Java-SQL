@@ -7,6 +7,10 @@ public class Sabor {
     public Sabor() {
     }
 
+    public Sabor(String sabor) {
+        this.sabor = sabor;
+    }
+
     public Sabor(int id, String sabor) {
         this.id = id;
         this.sabor = sabor;
