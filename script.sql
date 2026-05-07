@@ -1,8 +1,8 @@
-DROP DATABASE IF EXISTS db_padaria;
-CREATE DATABASE db_padaria;
-USE db_padaria;
+DROP DATABASE IF EXISTS dbpadaria;
+CREATE DATABASE dbpadaria;
+USE dbpadaria;
 
-CREATE TABLE tb_pessoa
+CREATE TABLE tbpessoa
 (
     id_pessoa_PK INT          NOT NULL AUTO_INCREMENT,
     nome         VARCHAR(100) NOT NULL,
@@ -13,17 +13,17 @@ CREATE TABLE tb_pessoa
     PRIMARY KEY (id_pessoa_PK)
 );
 
-CREATE TABLE tb_cliente
+CREATE TABLE tbcliente
 (
     id_pessoa_PK_FK INT     NOT NULL,
     filiacao        TINYINT NOT NULL,
 
     PRIMARY KEY (id_pessoa_PK_FK),
     CONSTRAINT fk_cliente_pessoa FOREIGN KEY (id_pessoa_PK_FK)
-        REFERENCES tb_pessoa (id_pessoa_PK) ON DELETE CASCADE
+        REFERENCES tbpessoa (id_pessoa_PK) ON DELETE CASCADE
 );
 
-CREATE TABLE tb_funcionario
+CREATE TABLE tbfuncionario
 (
     id_pessoa_PK_FK  INT            NOT NULL,
     horario_trabalho INT            NOT NULL,
@@ -31,10 +31,10 @@ CREATE TABLE tb_funcionario
 
     PRIMARY KEY (id_pessoa_PK_FK),
     CONSTRAINT fk_funcionario_pessoa FOREIGN KEY (id_pessoa_PK_FK)
-        REFERENCES tb_pessoa (id_pessoa_PK) ON DELETE CASCADE
+        REFERENCES tbpessoa (id_pessoa_PK) ON DELETE CASCADE
 );
 
-CREATE TABLE tb_pagamento
+CREATE TABLE tbpagamento
 (
     id_pagamento_PK INT NOT NULL AUTO_INCREMENT,
     metodo          ENUM('DINHEIRO', 'PIX', 'CARTAO_CREDITO', 'CARTAO_DEBITO') NOT NULL,
@@ -42,7 +42,7 @@ CREATE TABLE tb_pagamento
     PRIMARY KEY (id_pagamento_PK)
 );
 
-CREATE TABLE tb_ponto
+CREATE TABLE tbponto
 (
     id_ponto_PK       INT      NOT NULL AUTO_INCREMENT,
     data_hora         DATETIME NOT NULL,
@@ -51,10 +51,10 @@ CREATE TABLE tb_ponto
 
     PRIMARY KEY (id_ponto_PK),
     CONSTRAINT fk_ponto_funcionario FOREIGN KEY (id_funcionario_FK)
-        REFERENCES tb_funcionario (id_pessoa_PK_FK) ON DELETE CASCADE
+        REFERENCES tbfuncionario (id_pessoa_PK_FK) ON DELETE CASCADE
 );
 
-CREATE TABLE tb_dados_entrega
+CREATE TABLE tbdados_entrega
 (
     id_dados_entrega_PK INT           NOT NULL AUTO_INCREMENT,
     endereco            VARCHAR(100)  NOT NULL,
@@ -63,10 +63,10 @@ CREATE TABLE tb_dados_entrega
 
     PRIMARY KEY (id_dados_entrega_PK),
     CONSTRAINT fk_entrega_funcionario FOREIGN KEY (id_entregador_FK)
-        REFERENCES tb_funcionario (id_pessoa_PK_FK)
+        REFERENCES tbfuncionario (id_pessoa_PK_FK)
 );
 
-CREATE TABLE tb_pedido
+CREATE TABLE tbpedido
 (
     id_pedido_PK        INT           NOT NULL AUTO_INCREMENT,
     data_hora           DATETIME      NOT NULL,
@@ -77,44 +77,44 @@ CREATE TABLE tb_pedido
 
     PRIMARY KEY (id_pedido_PK),
     CONSTRAINT fk_pedido_cliente FOREIGN KEY (id_cliente_FK)
-        REFERENCES tb_cliente (id_pessoa_PK_FK),
+        REFERENCES tbcliente (id_pessoa_PK_FK),
     CONSTRAINT fk_pedido_pagamento FOREIGN KEY (id_pagamento_FK)
-        REFERENCES tb_pagamento (id_pagamento_PK),
+        REFERENCES tbpagamento (id_pagamento_PK),
     CONSTRAINT fk_pedido_entrega FOREIGN KEY (id_dados_entrega_FK)
-        REFERENCES tb_dados_entrega (id_dados_entrega_PK)
+        REFERENCES tbdados_entrega (id_dados_entrega_PK)
 );
 
-CREATE TABLE tb_produto
+CREATE TABLE tbproduto
 (
     id_produto_PK INT           NOT NULL AUTO_INCREMENT,
     nome          VARCHAR(50)   NOT NULL,
     preco         DECIMAL(7, 2) NOT NULL,
-    quantidade    INT           NOT NULL,
 
     PRIMARY KEY (id_produto_PK)
 );
 
-CREATE TABLE tb_sabor
+CREATE TABLE tbsabor
 (
     id_sabor_PK INT         NOT NULL AUTO_INCREMENT,
-    sabor       VARCHAR(50) NOT NULL,
+    sabor       VARCHAR(50) NOT NULL UNIQUE,
 
     PRIMARY KEY (id_sabor_PK)
 );
 
-CREATE TABLE tb_produto_sabor
+CREATE TABLE tbproduto_sabor
 (
     id_produto_PK_FK INT NOT NULL,
     id_sabor_PK_FK   INT NOT NULL,
+    quantidade       INT DEFAULT 0,
 
     PRIMARY KEY (id_produto_PK_FK, id_sabor_PK_FK),
     CONSTRAINT fk_produto FOREIGN KEY (id_produto_PK_FK)
-        REFERENCES tb_produto (id_produto_PK) ON DELETE CASCADE,
+        REFERENCES tbproduto (id_produto_PK) ON DELETE CASCADE,
     CONSTRAINT fk_sabor FOREIGN KEY (id_sabor_PK_FK)
-        REFERENCES tb_sabor (id_sabor_PK) ON DELETE CASCADE
+        REFERENCES tbsabor (id_sabor_PK) ON DELETE CASCADE
 );
 
-CREATE TABLE tb_item_pedido
+CREATE TABLE tbitem_pedido
 (
     id_pedido_PK_FK  INT NOT NULL,
     id_produto_PK_FK INT NOT NULL,
@@ -122,12 +122,12 @@ CREATE TABLE tb_item_pedido
 
     PRIMARY KEY (id_pedido_PK_FK, id_produto_PK_FK),
     CONSTRAINT fk_item_pedido FOREIGN KEY (id_pedido_PK_FK)
-        REFERENCES tb_pedido (id_pedido_PK) ON DELETE CASCADE,
+        REFERENCES tbpedido (id_pedido_PK) ON DELETE CASCADE,
     CONSTRAINT fk_item_produto FOREIGN KEY (id_produto_PK_FK)
-        REFERENCES tb_produto (id_produto_PK)
+        REFERENCES tbproduto (id_produto_PK)
 );
 
-CREATE TABLE tb_ingrediente
+CREATE TABLE tbingrediente
 (
     id_ingrediente_PK  INT           NOT NULL AUTO_INCREMENT,
     nome               VARCHAR(50)   NOT NULL,
@@ -137,7 +137,7 @@ CREATE TABLE tb_ingrediente
     PRIMARY KEY (id_ingrediente_PK)
 );
 
-CREATE TABLE tb_receita
+CREATE TABLE tbreceita
 (
     id_produto_PK_FK     INT           NOT NULL,
     id_ingrediente_PK_FK INT           NOT NULL,
@@ -145,7 +145,7 @@ CREATE TABLE tb_receita
 
     PRIMARY KEY (id_produto_PK_FK, id_ingrediente_PK_FK),
     CONSTRAINT fk_receita_produto FOREIGN KEY (id_produto_PK_FK)
-        REFERENCES tb_produto (id_produto_PK) ON DELETE CASCADE,
+        REFERENCES tbproduto (id_produto_PK) ON DELETE CASCADE,
     CONSTRAINT fk_receita_ingrediente FOREIGN KEY (id_ingrediente_PK_FK)
-        REFERENCES tb_ingrediente (id_ingrediente_PK) ON DELETE CASCADE
+        REFERENCES tbingrediente (id_ingrediente_PK) ON DELETE CASCADE
 );
