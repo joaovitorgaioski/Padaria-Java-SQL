@@ -12,15 +12,15 @@ import java.util.Map;
 public class FuncionarioDAO {
 
     public void cadastrar(Funcionario f) {
-        String sql = "INSERT INTO tb_funcionario (id_pessoa_PK_FK, horario_trabalho, salario) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO tbfuncionario (id_pessoa_PK_FK, horario_trabalho, salario) VALUES (?, ?, ?)";
 
         DatabaseHelper.executeCommand(sql, f.getId(), f.getHorasTrabalho(), f.getSalario());
     }
 
     public List<Funcionario> listar() {
         String sql = """
-                SELECT tb_pessoa.*, tb_funcionario.salario, tb_funcionario.horario_trabalho
-                FROM tb_pessoa JOIN tb_funcionario ON tb_pessoa.id_pessoa_PK = tb_funcionario.id_pessoa_PK_FK
+                SELECT tbpessoa.*, tbfuncionario.salario, tbfuncionario.horario_trabalho
+                FROM tbpessoa JOIN tbfuncionario ON tbpessoa.id_pessoa_PK = tbfuncionario.id_pessoa_PK_FK
                 """;
 
         List<Map<String, Object>> result = DatabaseHelper.executeQuery(sql);
@@ -46,8 +46,8 @@ public class FuncionarioDAO {
     public int buscarIdPorCpf(String cpf) {
         String sql = """
                 SELECT f.id_pessoa_PK_FK
-                FROM tb_funcionario f
-                JOIN tb_pessoa p ON f.id_pessoa_PK_FK = p.id_pessoa_PK
+                FROM tbfuncionario f
+                JOIN tbpessoa p ON f.id_pessoa_PK_FK = p.id_pessoa_PK
                 WHERE p.cpf = ?
                 """;
 
@@ -56,7 +56,7 @@ public class FuncionarioDAO {
 
     public TipoPonto buscarTipoPontoAtual(int id) {
         String sql = """
-                SELECT tipo FROM tb_ponto
+                SELECT tipo FROM tbponto
                 WHERE id_funcionario_FK = ?
                 ORDER BY data_hora DESC LIMIT 1
                 """;

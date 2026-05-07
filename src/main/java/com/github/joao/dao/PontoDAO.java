@@ -14,7 +14,7 @@ public class PontoDAO {
 
     public void registrarPonto(int id, TipoPonto tipo) {
         String sql = """
-                INSERT INTO tb_ponto (data_hora, tipo, id_funcionario_FK) VALUES
+                INSERT INTO tbponto (data_hora, tipo, id_funcionario_FK) VALUES
                 (NOW(), ?, ?)
                 """;
 
@@ -28,9 +28,9 @@ public class PontoDAO {
      */
     public List<Ponto> listarRecentes() {
         String sql = """
-                SELECT ponto.*, pessoa.nome FROM tb_ponto ponto
-                JOIN tb_funcionario funcionario ON ponto.id_funcionario_FK = funcionario.id_pessoa_PK_FK
-                JOIN tb_pessoa pessoa ON funcionario.id_pessoa_PK_FK = pessoa.id_pessoa_PK
+                SELECT ponto.*, pessoa.nome FROM tbponto ponto
+                JOIN tbfuncionario funcionario ON ponto.id_funcionario_FK = funcionario.id_pessoa_PK_FK
+                JOIN tbpessoa pessoa ON funcionario.id_pessoa_PK_FK = pessoa.id_pessoa_PK
                 ORDER BY ponto.data_hora DESC LIMIT 20
                 """;
 
@@ -54,7 +54,7 @@ public class PontoDAO {
     }
 
     public List<Ponto> listarUltimosDois(int id) {
-        String sql = "SELECT data_hora, tipo FROM tb_ponto WHERE id_funcionario_FK = ? ORDER BY data_hora DESC LIMIT 2";
+        String sql = "SELECT data_hora, tipo FROM tbponto WHERE id_funcionario_FK = ? ORDER BY data_hora DESC LIMIT 2";
 
         List<Ponto> ultimosDois = new ArrayList<>();
         List<Map<String, Object>> result = DatabaseHelper.executeQuery(sql, id);

@@ -11,15 +11,15 @@ import java.util.Map;
 public class ClienteDAO {
 
     public void cadastrar(Cliente c) {
-        String sql = "INSERT INTO tb_cliente (id_pessoa_PK_FK, filiacao) VALUES (?, ?)";
+        String sql = "INSERT INTO tbcliente (id_pessoa_PK_FK, filiacao) VALUES (?, ?)";
 
         DatabaseHelper.executeCommand(sql, c.getId(), c.getFiliacao());
     }
 
     public List<Cliente> listar() {
         String sql = """
-                SELECT tb_pessoa.*, tb_cliente.filiacao
-                FROM tb_pessoa JOIN tb_cliente ON tb_pessoa.id_pessoa_PK = tb_cliente.id_pessoa_PK_FK
+                SELECT tbpessoa.*, tbcliente.filiacao
+                FROM tbpessoa JOIN tbcliente ON tbpessoa.id_pessoa_PK = tbcliente.id_pessoa_PK_FK
                 """;
 
         List<Map<String, Object>> result = DatabaseHelper.executeQuery(sql);
