@@ -9,7 +9,7 @@ public class Produto {
     private int id, quantidade;
     private String nome;
     private BigDecimal preco;
-    private List<Sabor> sabores = new ArrayList<>();
+    private Sabor sabor;
 
     public Produto() {
     }
@@ -18,7 +18,7 @@ public class Produto {
         this.nome = nome;
         this.quantidade = quantidade;
         this.preco = preco;
-        this.sabores.add(sabor);
+        this.sabor = sabor;
     }
 
     public int getId() {
@@ -37,8 +37,8 @@ public class Produto {
         return preco;
     }
 
-    public List<Sabor> getSabores() {
-        return sabores;
+    public Sabor getSabor() {
+        return sabor;
     }
 
     public void setId(int id) {
@@ -52,9 +52,9 @@ public class Produto {
     }
 
     public void setQuantidade(int quantidade) {
-        if (quantidade > 0)
+        if (quantidade >= 0)
             this.quantidade = quantidade;
-        else throw new IllegalArgumentException("Coloque uma quantidade adequada e não nula!");
+        else throw new IllegalArgumentException("Coloque uma quantidade adequada!");
     }
 
     public void setPreco(BigDecimal preco) {
@@ -63,15 +63,7 @@ public class Produto {
         else throw new IllegalArgumentException("Preço deve estar entre R$ 0 e R$ 10000 !");
     }
 
-    public void setSabores(List<Sabor> sabores) {
-        this.sabores = sabores;
-    }
-
-    public String formatarSaboresString() {
-        if (sabores.isEmpty()) return "Sem sabor";
-
-        return sabores.stream()
-                .map(Sabor::getSabor)
-                .collect(Collectors.joining(", "));
+    public void setSabor(Sabor sabor) {
+        this.sabor = sabor;
     }
 }
