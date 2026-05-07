@@ -31,7 +31,7 @@
         <dependency>
             <groupId>org.controlsfx</groupId>
             <artifactId>controlsfx</artifactId>
-            <version>11.1.0</version>
+            <version>11.2.1</version>
         </dependency>
     </dependencies>
 
@@ -50,6 +50,9 @@
                 <version>0.0.8</version>
                 <configuration>
                     <mainClass>com.github.joao.view.App</mainClass>
+                    <options>
+                        <option>--add-exports=javafx.base/com.sun.javafx.event=ALL-UNNAMED</option>
+                    </options>
                 </configuration>
             </plugin>
         </plugins>
