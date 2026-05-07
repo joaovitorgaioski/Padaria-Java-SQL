@@ -14,6 +14,7 @@ public class App extends Application {
 
         primaryStage.setTitle("Padaria");
         primaryStage.setScene(new Scene(root));
+        primaryStage.setMaximized(true);
         primaryStage.show();
     }
 

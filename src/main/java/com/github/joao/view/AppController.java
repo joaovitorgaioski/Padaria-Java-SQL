@@ -36,6 +36,7 @@ public class AppController {
 
         } catch (IOException e) {
             MessageHelper.mostrarMensagem(Alert.AlertType.ERROR, "Erro", "Erro ao trocar de módulo", e.getMessage());
+            e.printStackTrace();
         }
     }
 }

@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="paneApp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.joao.view.AppController">
+<BorderPane fx:id="paneApp" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.joao.view.AppController">
    <top>
       <Pane prefHeight="39.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
@@ -26,6 +26,6 @@
       </VBox>
    </left>
    <center>
-      <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: lightgray;" BorderPane.alignment="CENTER" />
+      <Pane style="-fx-background-color: lightgray;" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>
