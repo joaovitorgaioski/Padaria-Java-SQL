@@ -16,103 +16,108 @@
 <?import javafx.scene.layout.RowConstraints?>
 
 <TabPane prefHeight="900.0" prefWidth="1000.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.joao.view.ProdutoController">
-  <tabs>
-    <Tab text="Produtos">
-         <content>
-            <BorderPane>
-               <top>
-                  <HBox prefHeight="58.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-                     <children>
-                        <TextField promptText="Buscar" />
-                     </children>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </HBox>
-               </top>
-               <center>
-                  <TableView fx:id="tableProdutos" prefHeight="200.0" prefWidth="518.0" BorderPane.alignment="CENTER">
-                    <columns>
-                      <TableColumn fx:id="colNome" prefWidth="75.0" text="Nome" />
-                      <TableColumn fx:id="colSabor" prefWidth="75.0" text="Sabor" />
-                        <TableColumn fx:id="colPreco" prefWidth="75.0" text="Preço" />
-                        <TableColumn fx:id="colEstoque" prefWidth="75.0" text="Estoque" />
-                    </columns>
-                     <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                     </columnResizePolicy>
-                  </TableView>
-               </center>
-            </BorderPane>
-         </content>
-    </Tab>
-      <Tab text="Adicionar Produto">
-         <content>
-            <BorderPane prefHeight="200.0" prefWidth="200.0">
-               <center>
-                  <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                     <top>
-                        <Button fx:id="btnAddIngrediente" mnemonicParsing="false" text="+ Associar Ingrediente" BorderPane.alignment="CENTER" />
-                     </top>
-                     <center>
-                        <TableView fx:id="tableIngredientes" prefWidth="400.0" BorderPane.alignment="CENTER">
-                          <columns>
-                            <TableColumn fx:id="colIngrediente" prefWidth="75.0" text="Ingrediente" />
-                            <TableColumn fx:id="colUnidade" prefWidth="75.0" text="Unidade" />
-                              <TableColumn fx:id="colQuantidade" prefWidth="75.0" text="Quantidade" />
-                          </columns>
-                           <columnResizePolicy>
-                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                           </columnResizePolicy>
-                           <BorderPane.margin>
-                              <Insets top="10.0" />
-                           </BorderPane.margin>
+    <tabs>
+        <Tab text="Produtos">
+            <content>
+                <BorderPane>
+                    <top>
+                        <HBox prefHeight="58.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+                            <children>
+                                <TextField promptText="Buscar" />
+                            </children>
+                            <padding>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                            </padding>
+                        </HBox>
+                    </top>
+                    <center>
+                        <TableView fx:id="tableProdutos" prefHeight="200.0" prefWidth="518.0" BorderPane.alignment="CENTER">
+                            <columns>
+                                <TableColumn fx:id="colNome" prefWidth="75.0" text="Nome" />
+                                <TableColumn fx:id="colSabor" prefWidth="75.0" text="Sabor" />
+                                <TableColumn fx:id="colPreco" prefWidth="75.0" text="Preço" />
+                                <TableColumn fx:id="colEstoque" prefWidth="75.0" text="Estoque" />
+                            </columns>
+                            <columnResizePolicy>
+                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                            </columnResizePolicy>
                         </TableView>
-                     </center>
-                     <BorderPane.margin>
-                        <Insets />
-                     </BorderPane.margin>
-                     <padding>
-                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                     </padding>
-                  </BorderPane>
-               </center>
-               <left>
-                  <GridPane BorderPane.alignment="CENTER">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="345.0" minWidth="10.0" prefWidth="306.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="274.0" minWidth="10.0" prefWidth="254.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints maxHeight="80.0" minHeight="10.0" prefHeight="29.0" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="129.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="265.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="349.0" minHeight="10.0" prefHeight="48.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="349.0" minHeight="10.0" prefHeight="64.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                     <children>
-                        <Label text="Nome *" />
-                        <Label text="Sabor *" GridPane.rowIndex="2" />
-                        <Label text="Preço *" GridPane.columnIndex="1" />
-                        <TextField fx:id="txtPreco" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                           <GridPane.margin>
-                              <Insets right="20.0" />
-                           </GridPane.margin>
-                        </TextField>
-                        <Label text="Quantidade *" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Button fx:id="btnAddProduto" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#adicionarProduto" text="Adicionar Produto" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
-                        <Button fx:id="btnCancelar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#cancelar" text="Cancelar" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
-                        <Spinner fx:id="spinQtd" editable="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <TextField fx:id="txtNome" GridPane.rowIndex="1" />
-                        <TextField fx:id="txtSabor" GridPane.rowIndex="3" />
-                     </children>
-                     <padding>
-                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                     </padding>
-                  </GridPane>
-               </left>
-            </BorderPane>
-         </content>
-      </Tab>
-  </tabs>
+                    </center>
+                </BorderPane>
+            </content>
+        </Tab>
+        <Tab text="Adicionar Produto">
+            <content>
+                <BorderPane prefHeight="200.0" prefWidth="200.0">
+                    <center>
+                        <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                            <top>
+                                <Button fx:id="btnAddIngrediente" mnemonicParsing="false" text="+ Associar Ingrediente" BorderPane.alignment="CENTER" />
+                            </top>
+                            <center>
+                                <TableView fx:id="tableIngredientes" prefWidth="400.0" BorderPane.alignment="CENTER">
+                                    <columns>
+                                        <TableColumn fx:id="colIngrediente" prefWidth="75.0" text="Ingrediente" />
+                                        <TableColumn fx:id="colQuantidade" prefWidth="75.0" text="Quantidade" />
+                                        <TableColumn fx:id="colUnidade" prefWidth="75.0" text="Unidade" />
+                                    </columns>
+                                    <columnResizePolicy>
+                                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                    </columnResizePolicy>
+                                    <BorderPane.margin>
+                                        <Insets top="10.0" />
+                                    </BorderPane.margin>
+                                </TableView>
+                            </center>
+                            <BorderPane.margin>
+                                <Insets />
+                            </BorderPane.margin>
+                            <padding>
+                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                            </padding>
+                        </BorderPane>
+                    </center>
+                    <left>
+                        <GridPane BorderPane.alignment="CENTER">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="345.0" minWidth="10.0" prefWidth="306.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="274.0" minWidth="10.0" prefWidth="254.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints maxHeight="80.0" minHeight="10.0" prefHeight="29.0" vgrow="SOMETIMES" />
+                                <RowConstraints maxHeight="129.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
+                                <RowConstraints maxHeight="265.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
+                                <RowConstraints maxHeight="349.0" minHeight="10.0" prefHeight="48.0" vgrow="SOMETIMES" />
+                                <RowConstraints maxHeight="349.0" minHeight="10.0" prefHeight="64.0" vgrow="SOMETIMES" />
+                            </rowConstraints>
+                            <children>
+                                <Label text="Nome *" />
+                                <Label text="Sabor *" GridPane.rowIndex="2" />
+                                <Label text="Preço *" GridPane.columnIndex="1" />
+                                <TextField fx:id="txtPreco" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                    <GridPane.margin>
+                                        <Insets right="20.0" />
+                                    </GridPane.margin>
+                                </TextField>
+                                <Label text="Quantidade *" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                <Button fx:id="btnAddProduto" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#adicionarProduto" text="Adicionar Produto" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+                                <Button fx:id="btnCancelar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#cancelar" text="Cancelar" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+                                <Spinner fx:id="spinQtd" editable="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                <TextField fx:id="txtNome" GridPane.rowIndex="1" />
+                                <TextField fx:id="txtSabor" GridPane.rowIndex="3" />
+                            </children>
+                            <padding>
+                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                            </padding>
+                        </GridPane>
+                    </left>
+                </BorderPane>
+            </content>
+        </Tab>
+        <Tab text="Ingredientes">
+            <content>
+                <fx:include source="TabIngredientes.fxml" />
+            </content>
+        </Tab>
+    </tabs>
 </TabPane>

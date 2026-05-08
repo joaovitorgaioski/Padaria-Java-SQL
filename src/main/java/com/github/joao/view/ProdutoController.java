@@ -1,6 +1,8 @@
 package com.github.joao.view;
 
+import com.github.joao.model.Ingrediente;
 import com.github.joao.model.Sabor;
+import com.github.joao.model.UnidadeMedida;
 import com.github.joao.service.ProdutoService;
 import com.github.joao.util.DuplicatedProductException;
 import com.github.joao.util.MessageHelper;
@@ -35,12 +37,26 @@ public class ProdutoController {
     @FXML
     private Spinner<Integer> spinQtd;
 
+    // Tabela de ingredientes
+    @FXML
+    private TableView<Ingrediente> tableIngrediente;
+    @FXML
+    private TableColumn<Ingrediente, String> colIngrediente;
+    @FXML
+    private TableColumn<Ingrediente, UnidadeMedida> colUnidade;
+    @FXML
+    private TableColumn<Ingrediente, Integer> colQuantidade;
+
     @FXML
     public void initialize() {
         colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
         colPreco.setCellValueFactory(new PropertyValueFactory<>("preco"));
         colEstoque.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
         colSabor.setCellValueFactory(celula -> new SimpleStringProperty(celula.getValue().getSabor().getSabor()));
+
+        colIngrediente.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        colUnidade.setCellValueFactory(new PropertyValueFactory<>("unidade"));
+        colQuantidade.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
 
         atualizarDados();
 

@@ -3,13 +3,13 @@ package com.github.joao.model;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Produto {
     private int id, quantidade;
     private String nome;
     private BigDecimal preco;
     private Sabor sabor;
+    private List<Ingrediente> receita;
 
     public Produto() {
     }
@@ -19,6 +19,15 @@ public class Produto {
         this.quantidade = quantidade;
         this.preco = preco;
         this.sabor = sabor;
+        this.receita = new ArrayList<>();
+    }
+
+    public Produto(String nome, int quantidade, BigDecimal preco, Sabor sabor, List<Ingrediente> receita) {
+        this.nome = nome;
+        this.quantidade = quantidade;
+        this.preco = preco;
+        this.sabor = sabor;
+        this.receita = receita;
     }
 
     public int getId() {
@@ -39,6 +48,10 @@ public class Produto {
 
     public Sabor getSabor() {
         return sabor;
+    }
+
+    public List<Ingrediente> getIngredientes() {
+        return receita;
     }
 
     public void setId(int id) {
@@ -65,5 +78,9 @@ public class Produto {
 
     public void setSabor(Sabor sabor) {
         this.sabor = sabor;
+    }
+
+    public void setReceita(List<Ingrediente> receita) {
+        this.receita = receita;
     }
 }

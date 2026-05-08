@@ -21,7 +21,6 @@
             <Button fx:id="btnProdutos" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#selecionarModulo" text="Produtos" />
             <Button fx:id="btnClientes" layoutX="10.0" layoutY="35.0" mnemonicParsing="false" onAction="#selecionarModulo" text="Clientes" />
             <Button fx:id="btnFuncionarios" layoutX="10.0" layoutY="60.0" mnemonicParsing="false" onAction="#selecionarModulo" text="Funcionarios" />
-            <Button fx:id="btnIngredientes" layoutX="10.0" layoutY="85.0" mnemonicParsing="false" onAction="#selecionarModulo" text="Ingredientes" />
          </children>
       </VBox>
    </left>

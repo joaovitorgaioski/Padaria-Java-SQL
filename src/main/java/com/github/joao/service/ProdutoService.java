@@ -35,7 +35,7 @@ public class ProdutoService {
             s.setId(idSabor);
             throw new DuplicatedProductException("Este Produto com este Sabor já existe!", p, s);
         } else {
-            dao.inserirRelacao(idProduto, idSabor);
+            dao.inserirRelacao(idProduto, idSabor, p.getPreco());
             incrementarEstoque(idProduto, idSabor, p.getQuantidade());
             atualizarCache();
         }
@@ -46,8 +46,20 @@ public class ProdutoService {
         dao.incrementarQuantidade(idProduto, idSabor, qtd);
     }
 
+    /**
+     * Lista os Produtos cadastrados com a respetiva receita de cada um
+     *
+     * @return Lista de Produtos cadastrados no sistema
+     */
     public List<Produto> listar() {
-        return dao.listar();
+        List<Produto> produtos = dao.listar();
+        IngredienteService ingService = new IngredienteService();
+
+        for (Produto p : produtos) {
+            p.setReceita(ingService.listarPorProduto(p, p.getSabor()));
+        }
+
+        return produtos;
     }
 
     public List<Sabor> buscarSabores(int idProduto) {
