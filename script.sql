@@ -86,9 +86,8 @@ CREATE TABLE tbpedido
 
 CREATE TABLE tbproduto
 (
-    id_produto_PK INT           NOT NULL AUTO_INCREMENT,
-    nome          VARCHAR(50)   NOT NULL,
-    preco         DECIMAL(7, 2) NOT NULL,
+    id_produto_PK INT         NOT NULL AUTO_INCREMENT,
+    nome          VARCHAR(50) NOT NULL,
 
     PRIMARY KEY (id_produto_PK)
 );
@@ -103,9 +102,10 @@ CREATE TABLE tbsabor
 
 CREATE TABLE tbproduto_sabor
 (
-    id_produto_PK_FK INT NOT NULL,
-    id_sabor_PK_FK   INT NOT NULL,
-    quantidade       INT DEFAULT 0,
+    id_produto_PK_FK   INT           NOT NULL,
+    id_sabor_PK_FK     INT           NOT NULL,
+    quantidade_produto INT DEFAULT 0,
+    preco              DECIMAL(7, 2) NOT NULL,
 
     PRIMARY KEY (id_produto_PK_FK, id_sabor_PK_FK),
     CONSTRAINT fk_produto FOREIGN KEY (id_produto_PK_FK)
@@ -118,21 +118,22 @@ CREATE TABLE tbitem_pedido
 (
     id_pedido_PK_FK  INT NOT NULL,
     id_produto_PK_FK INT NOT NULL,
+    id_sabor_PK_FK   INT NOT NULL,
     quantidade_itens INT NOT NULL,
 
     PRIMARY KEY (id_pedido_PK_FK, id_produto_PK_FK),
     CONSTRAINT fk_item_pedido FOREIGN KEY (id_pedido_PK_FK)
         REFERENCES tbpedido (id_pedido_PK) ON DELETE CASCADE,
-    CONSTRAINT fk_item_produto FOREIGN KEY (id_produto_PK_FK)
-        REFERENCES tbproduto (id_produto_PK)
+    CONSTRAINT fk_item_produto_sabor FOREIGN KEY (id_produto_PK_FK, id_sabor_PK_FK)
+        REFERENCES tbproduto_sabor (id_produto_PK_FK, id_sabor_PK_FK)
 );
 
 CREATE TABLE tbingrediente
 (
-    id_ingrediente_PK  INT           NOT NULL AUTO_INCREMENT,
-    nome               VARCHAR(50)   NOT NULL,
-    unidade_medida     ENUM('KG', 'GRAMA', 'LITRO', 'MILILITRO', 'UNIDADE') NOT NULL,
-    quantidade_estoque DECIMAL(8, 3) NOT NULL,
+    id_ingrediente_PK      INT           NOT NULL AUTO_INCREMENT,
+    nome                   VARCHAR(50)   NOT NULL,
+    unidade_medida         ENUM('KG', 'GRAMA', 'LITRO', 'MILILITRO', 'UNIDADE') NOT NULL,
+    quantidade_ingrediente DECIMAL(8, 3) NOT NULL,
 
     PRIMARY KEY (id_ingrediente_PK)
 );
@@ -140,12 +141,13 @@ CREATE TABLE tbingrediente
 CREATE TABLE tbreceita
 (
     id_produto_PK_FK     INT           NOT NULL,
+    id_sabor_PK_FK       INT           NOT NULL,
     id_ingrediente_PK_FK INT           NOT NULL,
-    quantidade_usada     DECIMAL(8, 3) NOT NULL,
+    quantidade_receita   DECIMAL(8, 3) NOT NULL,
 
-    PRIMARY KEY (id_produto_PK_FK, id_ingrediente_PK_FK),
-    CONSTRAINT fk_receita_produto FOREIGN KEY (id_produto_PK_FK)
-        REFERENCES tbproduto (id_produto_PK) ON DELETE CASCADE,
-    CONSTRAINT fk_receita_ingrediente FOREIGN KEY (id_ingrediente_PK_FK)
-        REFERENCES tbingrediente (id_ingrediente_PK) ON DELETE CASCADE
+    PRIMARY KEY (id_produto_PK_FK, id_sabor_PK_FK, id_ingrediente_PK_FK),
+    CONSTRAINT fk_produto_sabor_receita FOREIGN KEY (id_produto_PK_FK, id_sabor_PK_FK)
+        REFERENCES tbproduto_sabor (id_produto_PK_FK, id_sabor_PK_FK),
+    CONSTRAINT fk_ingrediente_receita FOREIGN KEY (id_ingrediente_PK_FK)
+        REFERENCES tbingrediente (id_ingrediente_PK)
 );

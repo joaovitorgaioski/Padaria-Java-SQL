@@ -13,8 +13,9 @@ public class ProdutoDAO {
 
     public List<Produto> listar() {
         String sql = """
-                SELECT p.*, s.*, ps.quantidade FROM tbproduto p 
-                INNER JOIN tbproduto_sabor ps ON ps.id_produto_PK_FK = p.id_produto_PK
+                SELECT p.*, s.*, ps.quantidade_produto, ps.preco
+                FROM tbproduto_sabor ps
+                INNER JOIN tbproduto p ON ps.id_produto_PK_FK = p.id_produto_PK
                 INNER JOIN tbsabor s ON ps.id_sabor_PK_FK = s.id_sabor_PK
                 """;
 
@@ -27,7 +28,7 @@ public class ProdutoDAO {
             p.setId((int) linha.get("id_produto_PK"));
             p.setNome((String) linha.get("nome"));
             p.setPreco(new BigDecimal(linha.get("preco").toString()));
-            p.setQuantidade((int) linha.get("quantidade"));
+            p.setQuantidade((int) linha.get("quantidade_produto"));
 
             Sabor s = new Sabor();
             s.setId((int) linha.get("id_sabor_PK"));
@@ -48,8 +49,8 @@ public class ProdutoDAO {
         int id = buscarIdPorNome(p.getNome());
         if (id > 0) return id;
 
-        String sql = "INSERT INTO tbproduto (nome, preco) VALUES (?, ?)";
-        DatabaseHelper.executeCommand(sql, p.getNome(), p.getPreco());
+        String sql = "INSERT INTO tbproduto (nome) VALUES (?)";
+        DatabaseHelper.executeCommand(sql, p.getNome());
         return buscarIdPorNome(p.getNome());
     }
 
@@ -68,14 +69,15 @@ public class ProdutoDAO {
     }
 
     /**
-     * Insere uma relação Produto-Sabor. Define quantidade ‘default’ como 0
+     * Insere uma relação Produto-Sabor. Define quantidade_produto ‘default’ como 0
      * @param idProduto id do Produto
      * @param idSabor id do Sabor
+     * @param preco Preço do Produto
      */
-    public void inserirRelacao(int idProduto, int idSabor) {
-        String sql = "INSERT INTO tbproduto_sabor (id_produto_PK_FK, id_sabor_PK_FK) VALUES (?, ?)";
+    public void inserirRelacao(int idProduto, int idSabor, BigDecimal preco) {
+        String sql = "INSERT INTO tbproduto_sabor (id_produto_PK_FK, id_sabor_PK_FK, preco) VALUES (?, ?, ?)";
 
-        DatabaseHelper.executeCommand(sql, idProduto, idSabor);
+        DatabaseHelper.executeCommand(sql, idProduto, idSabor, preco);
     }
 
     /**
@@ -85,7 +87,7 @@ public class ProdutoDAO {
      * @param qtd quantidade de novos Produto-Sabor
      */
     public void incrementarQuantidade(int idP, int idS, int qtd) {
-        String sql = "UPDATE tbproduto_sabor SET quantidade = quantidade + ? WHERE id_produto_PK_FK = ? AND id_sabor_PK_FK = ?";
+        String sql = "UPDATE tbproduto_sabor SET quantidade_produto = quantidade_produto + ? WHERE id_produto_PK_FK = ? AND id_sabor_PK_FK = ?";
 
         DatabaseHelper.executeCommand(sql, qtd, idP, idS);
     }
