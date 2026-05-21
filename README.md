@@ -1,6 +1,6 @@
 # Sistema para Padaria Standalone (old version)
 
->Este simples projeto serviu para trabalhar conceitos fundamentais de Java e não foi finalizado, uma versão moderna usando Spring Boot, ORM, React, etc esta sendo feita.
+>Este simples projeto representa uma versão descontinuada e incompleta, serviu para trabalhar conceitos fundamentais de Java e não foi finalizado, uma versão moderna usando Spring Boot, React, etc esta sendo feita.
 
 >Projeto pessoal de criação de sistema para padaria usando Java bruto, JavaFX e integração com banco JDBC com SQL digitado.
 
